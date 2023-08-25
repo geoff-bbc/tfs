@@ -35,8 +35,8 @@
                                     <p style='color:rgb(74,105,135);font-size:initial;text-align:start' ><a href="https://www.tubeformsolutions.com">Tube From Solutions</a></p>
                                 </div>
                                 <div style='background-color:rgb(105,31,8);height:240px;margin:0px 0px 3% 0px;padding:25px 60px 0px 0px;text-align:end;position:relative'>
-                                    <div style='color:white;font-size:25px;font-weight:bolder;margin:0px 0px 0px 0px;text-align:end'>INTRODUCTION TO ROTARY</div>
-                                    <div style='color:white;font-size:25px;font-weight:bolder;margin:0px 0px 0px 0px;text-align:end;line-height:28px;'>BRAW BENDING TOOLING</div>
+                                    <div style='color:white;font-size:x-large;font-weight:bolder;margin:0px 0px 0px 0px;text-align:end'>INTRODUCTION TO ROTARY</div>
+                                    <div style='color:white;font-size:large;font-weight:bolder;margin:0px 0px 0px 0px;text-align:end;line-height:28px;'>BRAW BENDING TOOLING</div>
                                     <div style="margin-top:0px;margin-left:40px;margin-bottom:6px;">
                                         <img src="/tube_form_marketing_automation/static/src/img/tube.png" style='float:left;width:210px'/>
                                     </div>
@@ -56,8 +56,8 @@
                     </tbody>
                     </table>
                         <div style='padding:0px 16px 0px 32px;margin:30px 0px 45px 0px;'>
-                            <p style='color:rgb(74,105,135);font-size:13px;text-align:center;margin:0px 0px 0px 0px;'>Tube From Solutions, 435 Roske Drive, Elkhart, Indiana 46516, United States, <a href="tel:574-295-5041">574-295-5041</a></p>
-                            <p style='text-align:center'><a t-attf-href="/unsubscribe-email?email={{object.email}}" style='color:#FF0000;font-size:13px;'><u>Unsubscribe</u> <u>Manage</u> <u>preferences</u></a></p>
+                            <p style='color:rgb(74,105,135);font-size:small;text-align:center;margin:0px 0px 0px 0px;'>Tube From Solutions, 435 Roske Drive, Elkhart, Indiana 46516, United States, <a href="tel:574-295-5041">574-295-5041</a></p>
+                            <p style='text-align:center'><a t-attf-href="/unsubscribe-email?email={{object.email}}" style='color:#FF0000;font-size:small;'><u>Unsubscribe</u> <u>Manage</u> <u>preferences</u></a></p>
                         </div>
                     </td></tr>
                 </table>
