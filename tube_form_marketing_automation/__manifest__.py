@@ -1,0 +1,19 @@
+{
+    'name': 'Tube From Marketing Automation',
+    'summary': 'Tube From Marketing Automation',
+    'version': '16.0.0.0',
+    'author': 'Silent Infotech Pvt. Ltd.',
+    'website': 'https://silentinfotech.com',
+    'license': 'LGPL-3',
+    'depends': ['base','website','crm','contacts'],
+    'data': [
+        'data/completed_contact_us_form_template.xml',
+        'data/completed_contact_us_form_after_week_template.xml',
+        'data/completed_contact_us_email_mike_template.xml',
+        'data/completed_contact_us_form_cron.xml',
+        'views/res_partner_views.xml'
+    ],
+    'application': False,
+    'installable': True,
+    'auto_install': False,
+}
