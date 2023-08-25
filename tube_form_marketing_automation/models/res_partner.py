@@ -20,7 +20,7 @@ class ResPartner(models.Model):
                 'to_email_id': customer.email,
                 'customer_name': customer.name
             }
-            if customer.is_blacklist != False:
+            if customer.is_blacklist != True:
                 contact_us_after_week_notify_email_template.with_context(**after_week_email_details).send_mail(customer.id,force_send=True)
 
     @api.onchange('is_blacklist')

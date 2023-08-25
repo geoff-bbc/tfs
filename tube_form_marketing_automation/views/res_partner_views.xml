@@ -11,6 +11,7 @@
                 <group>
                     <field name="is_blacklist"/>
                     <field name="unsubscription_date"/>
+                    <field name="contact_us_email_notify_date" invisible="1"/>
                 </group>
                 </page>
             </xpath>
