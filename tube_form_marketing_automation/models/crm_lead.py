@@ -15,7 +15,7 @@ class Lead(models.Model):
         customer = self.env['res.partner'].sudo().search([('email', '=', vals_list['email_from'])], limit=1) or \
                    self.env['res.partner'].sudo().search([('phone', '=', vals_list['phone'])], limit=1)
 
-        company_id = self.env['res.partner'].sudo().search(['&',('company_type', '=', 'company'),('name','=',vals_list['partner_name'])])
+        company_id = self.env['res.partner'].sudo().search([('name','=',vals_list['partner_name'])]).filtered(lambda r: r.company_type == 'company')
         user_id = self.env['res.users'].sudo().search(['&',('name', '=', 'Mike Thomas'),('email','=','mike.thomas@tfs-corp.com')])
 
         if not company_id:

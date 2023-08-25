@@ -19,43 +19,43 @@
                         <tr>
                             <td align="center" style="min-width: 630px;">
                                 <div style='padding:0px 16px 0px 16px;'>
-                                    <p style='color:rgb(74,105,135);font-size:initial;text-align:start'>Hi <b><span t-esc="object.partner_id.user_id.name"/></b>,</p>
+                                    <p style='color:rgb(74,105,135);font-size:small;text-align:start'>Hi <b><span t-esc="object.partner_id.user_id.name"/></b>,</p>
                                 </div><br/>
                                 <div style='padding:0px 16px 0px 16px;'>
-                                    <p style='color:rgb(74,105,135);font-size:initial;text-align:start'>The following opportunity was just created. Please review and assign to the correct salesperson.</p>
+                                    <p style='color:rgb(74,105,135);font-size:small;text-align:start'>The following opportunity was just created. Please review and assign to the correct salesperson.</p>
                                 </div><br/>
                                 <div style='padding:0px 16px 0px 16px;'>
-                                    <p style='color:rgb(74,105,135);font-size:initial;text-align:start'><a t-attf-href="/web#id={{object.id}}&amp;menu_id=435&amp;cids=1&amp;action=693&amp;model=crm.lead&amp;view_type=form">Click here to go to the opportunity in Odoo</a> to see the details.</p>
+                                    <p style='color:rgb(74,105,135);font-size:small;text-align:start'><a t-attf-href="/web#id={{object.id}}&amp;menu_id=435&amp;cids=1&amp;action=693&amp;model=crm.lead&amp;view_type=form">Click here to go to the opportunity in Odoo</a> to see the details.</p>
                                 </div><br/>
                                 <div>
                                     <table class="table" style="border:1pt solid black;width:500px">
                                         <tbody>
                                             <t>
-                                                <tr style="font-size:initial;padding:10px;">
+                                                <tr style="font-size:small;padding:10px;">
                                                     <td style="border:1pt solid black;"><span>Opportunity Name</span></td>
                                                     <td style="border:1pt solid black;"><span t-esc="object.name"/></td>
                                                 </tr>
-                                                <tr style="font-size:initial;padding:10px;">
+                                                <tr style="font-size:small;padding:10px;">
                                                     <td style="border:1pt solid black;"><span>Created By</span></td>
                                                     <td style="border:1pt solid black;"><span t-esc="object.create_uid.name"/></td>
                                                 </tr>
-                                                <tr style="font-size:initial;padding:10px;">
+                                                <tr style="font-size:small;padding:10px;">
                                                     <td style="border:1pt solid black;"><span>Contact Name</span></td>
                                                     <td style="border:1pt solid black;"><span t-esc="object.contact_name"/></td>
                                                 </tr>
-                                                <tr style="font-size:initial;padding:10px;">
+                                                <tr style="font-size:small;padding:10px;">
                                                     <td style="border:1pt solid black;"><span>Company Name</span></td>
                                                     <td style="border:1pt solid black;"><span t-esc="object.partner_name"/></td>
                                                 </tr>
-                                                <tr style="font-size:initial;padding:10px;">
+                                                <tr style="font-size:small;padding:10px;">
                                                     <td style="border:1pt solid black;"><span>Email</span></td>
                                                     <td style="border:1pt solid black;"><span t-esc="object.email_from"/></td>
                                                 </tr>
-                                                <tr style="font-size:initial;padding:10px;">
+                                                <tr style="font-size:small;padding:10px;">
                                                     <td style="border:1pt solid black;"><span>Phone</span></td>
                                                     <td style="border:1pt solid black;"><span t-esc="object.phone"/></td>
                                                 </tr>
-                                                <tr style="font-size:initial;padding:10px;">
+                                                <tr style="font-size:small;padding:10px;">
                                                     <td style="border:1pt solid black;"><span>Notes From Customer</span></td>
                                                     <td style="border:1pt solid black;"><span t-esc="object.x_studio_notes_from_customer"/></td>
                                                 </tr>
@@ -64,7 +64,7 @@
                                     </table>
                                 </div>
                                  <div style='padding:0px 16px 0px 16px;'>
-                                     <p style='color:rgb(74,105,135);font-size:initial;text-align:start;margin-bottom:0px'>Opportunities can get created way:</p>
+                                     <p style='color:rgb(74,105,135);font-size:small;text-align:start;margin-bottom:0px'>Opportunities can get created way:</p>
                                     <ul>
                                         <li style='color:rgb(74,105,135);text-align:start'>a public user submits a form via Contact Us Form one of the websites</li>
                                     </ul>
