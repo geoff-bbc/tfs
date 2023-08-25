@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="completed_contact_us_form_template" model="mail.template">
+            <field name="name">Completed Contact Us From First Email Template</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="subject">Thanks you for reaching out to Tube Form Solution!</field>
+            <field name="email_from"></field>
+            <field name="email_to">{{object.email}}</field>
+            <field name="body_html" type="html">
+                <table border="0" cellpadding="0" cellspacing="0" style="padding:16px 0px 150px 0px;height:fit-content; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"><tr><td align="center">
+                    <table border="0" cellpadding="0" cellspacing="0" width="590" style="padding:16px 0px 16px 0px; background-color: white; color: #454748; border-collapse:separate;">
+                    <tbody>
+                        <tr>
+                            <td align="center" style="min-width: 590px;">
+                                <img src="/tube_form_marketing_automation/static/src/img/tfs.png" alt="Company logo" style='height:100px;margin-top:5px'/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="min-width: 630px;">
+                                <div style='padding:0px 16px 0px 16px;'>
+                                    <p style='color:rgb(74,105,135);font-size:initial;text-align:start'>Hi <b><span t-esc="object.name"/></b>,</p>
+                                </div><br/>
+                                <div style='padding:0px 16px 0px 16px;'>
+                                    <p style='color:rgb(74,105,135);font-size:initial;text-align:start'>You are recently reached out to us and we wanted to say thank you!</p>
+                                </div><br/>
+                                <div style='padding:0px 16px 0px 16px;'>
+                                    <p style='color:rgb(74,105,135);font-size:initial;text-align:start'>Tube From Solutions is a global leader in bending solutions, dedicated to helping transform our customer's concepts into reality. Our goal is to empower the people who design by providing exceptional innovative products, technical support and outstanding customer support. </p>
+                                </div><br/>
+                                <div style='padding:0px 16px 0px 16px;'>
+                                    <p style='color:rgb(74,105,135);font-size:initial;text-align:start'>We'd like to invite you to learn more about us and to connect with us through <a href="https://www.linkedin.com/company/tube-form-solutions/" style='color:#FF0000;'><u>LinkedIn</u></a>, <a href="https://m.facebook.com/TubeFormSolutions/" style='color:#FF0000;'><u>Facebook</u></a>, <a href="https://twitter.com/Tube_form" style='color:#FF0000;'><u>Twitter</u></a>, and <a href="https://www.youtube.com/user/tubeformsolutions" style='color:#FF0000;'><u>YouTube</u></a> to see how we help our customers achieve success!</p>
+                                </div><br/>
+                                <div style='padding:0px 16px 0px 16px;'>
+                                    <p style='color:rgb(74,105,135);font-size:initial;text-align:start'>Sincerely,</p>
+                                    <p style='color:rgb(74,105,135);font-size:initial;text-align:start' ><a href="https://www.tubeformsolutions.com">Tube From Solutions</a></p>
+                                </div>
+                                <div style='background-color:rgb(105,31,8);height:230px;margin:0px 0px 3% 0px;padding:25px 60px 0px 0px;text-align:end;position:relative'>
+                                    <div style='color:white;font-size:25px;font-weight:bolder;margin:0px 0px 0px 0px;text-align:end'>TUBE END FORMING EXPLAINED</div>
+                                    <div style='color:white;font-size:18px;text-align:end'>An Engineer's Guide to End Forming Tube And Tube</div>
+                                    <div style='color:white;font-size:18px;text-align:end'>End Forming Understand Part Function to</div>
+                                    <div style='color:white;font-size:18px;text-align:end'>Determine the Right Tools</div>
+                                    <div style='margin:-100px 0px 0px 19px'>
+                                        <img src="/tube_form_marketing_automation/static/src/img/tube_logo.png" style='float:left;width:160px'/>
+                                    </div>
+                                    <a href="https://www.tubeformsolutions.com/tube-end-forming-explained-thank-you"><button type='button' style='background-color:rgb(179,151,10);color:white;margin:5px 5px 0px 0px;border:0px;text-align:center;font-size:large;height:40px;'><b style='font-weight:bolder'>DOWNLOAD NOW</b></button></a>
+
+                                </div>
+                                <div>
+                                    <a style="display:inline-block;padding-right:5px"  href="https://m.facebook.com/TubeFormSolutions/"><img src="/tube_form_marketing_automation/static/src/img/facebook.png" style='background-color:rgb(61,90,152);border-radius: 50%;width:35px;'/></a>
+                                    <a style="display:inline-block;padding-right:5px"  href="https://www.youtube.com/user/tubeformsolutions"><img src="/tube_form_marketing_automation/static/src/img/youtube.png" style='background-color:rgb(229,77,4);border-radius: 50%;width:35px;'/></a>
+                                    <a style="display:inline-block;padding-right:5px"  href="https://twitter.com/Tube_form"><img src="/tube_form_marketing_automation/static/src/img/twitter.png" style='background-color:rgb(60,162,242);border-radius: 50%;width:35px;'/></a>
+                                    <a style="display:inline-block"  href="https://www.linkedin.com/company/tube-form-solutions/"><img src="/tube_form_marketing_automation/static/src/img/Linkedin.png" style='color:rgb(42,120,181);width:35px;margin:0px 0px 0px 0px;'/></a>
+                                </div><br/>
+                                <div style='padding:0px 16px 0px 32px;'>
+                                    <p style='color:rgb(74,105,135);font-size:13px;text-align:start;margin:0px 0px 0px 0px;'>Tube From Solutions, 435 Roske Drive, Elkhart, Indiana 46516, United States, <a href="tel:574-295-5041">574-295-5041</a></p>
+                                    <p style='text-align:start'><a t-attf-href="/unsubscribe-email?email={{object.email}}" style='color:#FF0000;font-size:13px;'><u>Unsubscribe</u> <u>Manage</u> <u>preferences</u></a></p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    </table>
+                    </td></tr>
+                </table>
+            </field>
+        </record>
+    </data>
+</odoo>
