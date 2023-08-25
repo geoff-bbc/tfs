@@ -22,14 +22,16 @@ class Lead(models.Model):
             # create new company ----
             company_id = self.env['res.partner'].sudo().create({
                 'company_type': 'company',
-                'name': vals_list['partner_name']
+                'name': vals_list['partner_name'],
+                'x_studio_primary_business_relationship': 'Customer / Prospect'
             })
 
         if customer:
-            new_customer = self.env['res.partner'].sudo().write({
+            new_customer = self.env['res.partner'].browse(customer.id).sudo().write({
                 'parent_id': company_id.id,
                 'user_id': user_id.id,
-                'contact_us_email_notify_date': datetime.date.today() + relativedelta(days=+7)
+                'contact_us_email_notify_date': datetime.date.today() + relativedelta(days=+7),
+                'x_studio_primary_business_relationship': 'Customer / Prospect'
             })
 
         else:
@@ -40,7 +42,8 @@ class Lead(models.Model):
                 'email': vals_list['email_from'],
                 'parent_id': company_id.id,
                 'user_id': user_id.id,
-                'contact_us_email_notify_date': datetime.date.today() + relativedelta(days=+7)
+                'contact_us_email_notify_date': datetime.date.today() + relativedelta(days=+7),
+                'x_studio_primary_business_relationship': 'Customer / Prospect'
             })
         vals_list['partner_id'] = customer.id
 
