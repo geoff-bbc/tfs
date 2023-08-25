@@ -12,9 +12,6 @@ class propertModel(http.Controller):
         base_url = customer.get_base_url()
 
         if customer.is_blacklist != True:
-            customer.is_blacklist = True
-            customer.unsubscription_date = datetime.datetime.now()
-        else:
-            customer.unsubscription_date = False
-
+            customer.sudo().write({'is_blacklist': True,
+                                   'unsubscription_date': datetime.datetime.now()})
         return request.redirect(base_url)
