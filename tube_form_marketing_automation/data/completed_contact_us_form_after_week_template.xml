@@ -34,15 +34,15 @@
                                     <p style='color:rgb(74,105,135);font-size:initial;text-align:start'>Sincerely,</p>
                                     <p style='color:rgb(74,105,135);font-size:initial;text-align:start' ><a href="https://www.tubeformsolutions.com">Tube From Solutions</a></p>
                                 </div>
-                                <div style='background-color:rgb(105,31,8);height:255px;margin:0px 0px 3% 0px;padding:25px 60px 0px 0px;text-align:end;position:relative'>
+                                <div style='background-color:rgb(105,31,8);height:240px;margin:0px 0px 3% 0px;padding:25px 60px 0px 0px;text-align:end;position:relative'>
                                     <div style='color:white;font-size:25px;font-weight:bolder;margin:0px 0px 0px 0px;text-align:end'>INTRODUCTION TO ROTARY</div>
-                                    <div style='color:white;font-size:25px;font-weight:bolder;margin:0px 0px 0px 0px;text-align:end'>BRAW BENDING TOOLING</div>
-                                    <div style='color:white;font-size:25px;text-align:end'>An Engineer's Guide to</div>
-                                    <div style='color:white;font-size:25px;text-align:end'>Bending Tubes</div>
-                                    <a href="https://www.tubeformsolutions.com/intro-to-rotary-draw-bending-ty"><button type='button'  style='background-color:rgb(179,151,10);color:white;margin:5px 5px 0px 0px;border:0px;text-align:center;font-size:large;height:40px;'><b style='font-weight:bolder'>DOWNLOAD NOW</b></button></a>
-                                    <div style="margin:-115px 0px 0px 19px;">
+                                    <div style='color:white;font-size:25px;font-weight:bolder;margin:0px 0px 0px 0px;text-align:end;line-height:28px;'>BRAW BENDING TOOLING</div>
+                                    <div style="margin-top:0px;margin-left:40px;margin-bottom:6px;">
                                         <img src="/tube_form_marketing_automation/static/src/img/tube.png" style='float:left;width:210px'/>
                                     </div>
+                                    <div style='color:white;font-size:25px;text-align:end;line-height:22px;'>An Engineer's Guide to</div>
+                                    <div style='color:white;font-size:25px;text-align:end'>Bending Tubes</div>
+                                    <a href="https://www.tubeformsolutions.com/intro-to-rotary-draw-bending-ty"><button type='button'  style='background-color:rgb(179,151,10);width:210px;color:white;margin:5px 5px 0px 0px;border:0px;text-align:center;font-size:large;height:40px;'><b style='font-weight:bolder'>DOWNLOAD NOW</b></button></a>
                                 </div>
                                 <div>
                                     <a style="display:inline-block;padding-right:5px"  href="https://m.facebook.com/TubeFormSolutions/"><img src="/tube_form_marketing_automation/static/src/img/facebook.png" style='background-color:rgb(61,90,152);border-radius: 50%;width:35px;'/></a>
