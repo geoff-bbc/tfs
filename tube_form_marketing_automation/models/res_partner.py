@@ -33,7 +33,6 @@ class ResPartner(models.Model):
                             followup_3_notify_date_dict = eval(contacts.followup_3_notify_date)
                             followup_3_notify_date_dict['contact-us'] = str(follow_up_3_notify_date_set)
                             vals_customer_write['followup_3_notify_date'] = json.dumps(followup_3_notify_date_dict)
-
                         else:
                             vals_customer_write['followup_3_notify_date'] = json.dumps({'contact-us': str(follow_up_3_notify_date_set)})
 
