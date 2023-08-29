@@ -10,6 +10,8 @@
         'data/completed_contact_us_form_template.xml',
         'data/completed_contact_us_form_after_week_template.xml',
         'data/completed_contact_us_email_mike_template.xml',
+        'data/followup_1_tef_explained_email_template.xml',
+        # 'data/followup_2_tef_explained_email_template.xml',
         'data/completed_contact_us_form_cron.xml',
         'views/res_config_settings_views.xml',
         'views/res_partner_views.xml'
