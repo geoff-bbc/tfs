@@ -12,6 +12,8 @@ class ResPartner(models.Model):
     followup_2_notify_date = fields.Text(string="Follow Up 2 Notify Date")
     followup_3_notify_date = fields.Text(string="Follow Up 3 Notify Date")
     unsubscription_date = fields.Datetime(string="Unsubscription Date")
+    contact_us_email_notify_date = fields.Date(string="Contact Us Email Notify Date")
+
 
     def completed_contact_us_form_cron(self):
 
@@ -68,49 +70,3 @@ class ResPartner(models.Model):
             self.unsubscription_date = False
         else:
             self.unsubscription_date = datetime.datetime.now()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        # customer =  self.env["res.partner"].browse(271042)
-        # rec =  self.env["mailing.contact"].browse(7842)
-
-        # followup_1_roi_calculator_email_template = self.env.ref('tube_form_marketing_automation.followup_1_roi_calculator_email_template')
-        # followup_1_section_modulus_calculator_email_template = self.env.ref('tube_form_marketing_automation.followup_1_section_modulus_calculator_email_template')
-        # followup_1_specifying_tube_bender_email_template = self.env.ref('tube_form_marketing_automation.followup_1_specifying_tube_bender_email_template')
-        # followup_1_tef_explained_email_template = self.env.ref('tube_form_marketing_automation.followup_1_tef_explained_email_template')
-        # followup_1_tube_bender_buying_email_template = self.env.ref('tube_form_marketing_automation.followup_1_tube_bender_buying_email_template')
-        # followup_2_specifying_tube_bender_email_template = self.env.ref('tube_form_marketing_automation.followup_2_specifying_tube_bender_email_template')
-        # followup_2_tef_explained_email_template = self.env.ref('tube_form_marketing_automation.followup_2_tef_explained_email_template')
-        # followup_2_tube_bender_buying_email_template = self.env.ref('tube_form_marketing_automation.followup_2_tube_bender_buying_email_template')
-        # followup_3_tef_explained_blog_email_template = self.env.ref('tube_form_marketing_automation.followup_3_tef_explained_blog_email_template')
-        #
-        # followup_1_roi_calculator_email_template.send_mail(rec.id,force_send=True)
-        # followup_1_section_modulus_calculator_email_template.send_mail(customer.id,force_send=True)
-        # followup_1_specifying_tube_bender_email_template.send_mail(rec.id,force_send=True)
-        # followup_1_tef_explained_email_template.send_mail(customer.id,force_send=True)
-        # followup_1_tube_bender_buying_email_template.send_mail(rec.id,force_send=True)
-        # followup_2_specifying_tube_bender_email_template.send_mail(rec.id,force_send=True)
-        # followup_2_tef_explained_email_template.send_mail(customer.id,force_send=True)
-        # followup_2_tube_bender_buying_email_template.send_mail(rec.id,force_send=True)
-        # followup_3_tef_explained_blog_email_template.send_mail(customer.id,force_send=True)
-
-
-
-
-
-
