@@ -13,6 +13,7 @@
         'data/followup_1_tef_explained_email_template.xml',
         'data/followup_1_specifying_tube_bender_email_template.xml',
         'data/followup_2_tef_explained_email_template.xml',
+        'data/followup_2_specifying_tube_bender_email_template.xml',
         'data/followup_3_tef_explained_email_template.xml',
         'data/completed_contact_us_form_cron.xml',
         'data/completed_mailing_contact_form_cron.xml',
