@@ -44,25 +44,6 @@ class ResPartner(models.Model):
                             contact_us_after_week_notify_email_template = self.env.ref('tube_form_marketing_automation.completed_contact_us_form_after_week_template')
                             contact_us_after_week_notify_email_template.send_mail(contact_id,force_send=True)
 
-                if 'tube-end-forming-explained' in follow_up_2_notify_date_vals :
-                    if str(follow_up_3_notify_date_set) == follow_up_2_notify_date_vals.get('tube-end-forming-explained'):
-                        contact_id = followup_2_notify_date_dict.get('id')
-                        contacts = self.env["res.partner"].sudo().browse(contact_id)
-                        vals_customer_write = {}
-                        if contacts.followup_3_notify_date:
-                            followup_3_notify_date_dict = eval(contacts.followup_3_notify_date)
-                            followup_3_notify_date_dict['contact-us'] = str(follow_up_3_notify_date_set)
-                            vals_customer_write['followup_3_notify_date'] = json.dumps(followup_3_notify_date_dict)
-
-                        else:
-                            vals_customer_write['followup_3_notify_date'] = json.dumps(
-                                {'contact-us': str(follow_up_3_notify_date_set)})
-
-                        new_customer = contacts.sudo().write(vals_customer_write)
-
-                        if followup_2_notify_date_dict.get('is_blacklist') != True:
-                            contact_us_after_week_notify_email_template = self.env.ref('tube_form_marketing_automation.followup_2_tef_explained_email_template')
-                            contact_us_after_week_notify_email_template.send_mail(contact_id,force_send=True)
 
     @api.onchange('is_blacklist')
     def _onchange_blacklist(self):
