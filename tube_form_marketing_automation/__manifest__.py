@@ -12,6 +12,7 @@
         'data/completed_contact_us_email_mike_template.xml',
         'data/followup_1_tef_explained_email_template.xml',
         'data/followup_1_specifying_tube_bender_email_template.xml',
+        'data/followup_1_roi_calculator_email_template.xml',
         'data/followup_2_tef_explained_email_template.xml',
         'data/followup_2_specifying_tube_bender_email_template.xml',
         'data/followup_3_tef_explained_email_template.xml',
