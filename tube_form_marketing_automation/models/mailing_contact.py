@@ -48,6 +48,10 @@ class Mailing(models.Model):
                     followup_1_tef_explained = self.env.ref('tube_form_marketing_automation.followup_1_section_modulus_calculator_email_template')
                     followup_1_tef_explained.send_mail(res.id, force_send=True)
 
+                elif res.is_blacklisted != True and page_url == 'tube-bender-buying-checklist':
+                    followup_1_tef_explained = self.env.ref('tube_form_marketing_automation.followup_1_tube_bender_buying_email_template')
+                    followup_1_tef_explained.send_mail(res.id, force_send=True)
+
             return res
         else:
             return super(Mailing, self).create(vals_list)
