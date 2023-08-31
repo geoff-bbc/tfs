@@ -21,10 +21,9 @@ class propertModel(http.Controller):
         user_email = post.get('email')
         mailing_blacklisted_email = request.env['mail.blacklist'].search([('email','=', user_email)],limit=1)
         base_url = mailing_blacklisted_email.get_base_url()
+
         if not mailing_blacklisted_email:
-            request.env['mail.blacklist'].sudo().create({
-                'email': user_email
-            })
+            request.env['mail.blacklist']._add(user_email)
 
         request.env.cr.commit()
         return request.redirect(base_url)
