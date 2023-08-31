@@ -43,31 +43,45 @@ class Mailing(models.Model):
 
     def completed_mailing_contact_form_cron(self):
 
-        followup_2_notify_date_list = self.env["mailing.contact"].sudo().search_read([],['id','followup_2_notify_date','is_blacklisted'])
+        followup_notify_date_list = self.env["mailing.contact"].sudo().search_read([],['id','followup_2_notify_date','followup_3_notify_date','is_blacklisted'])
         follow_up_2_notify_day = self.env['ir.config_parameter'].sudo().get_param('follow_up_2_notify_day')
-        follow_up_3_notify_date_set = datetime.date.today() + relativedelta(days=-int(follow_up_2_notify_day))
+        follow_up_2_notify_date_set = datetime.date.today() + relativedelta(days=-int(follow_up_2_notify_day))
+        follow_up_3_notify_day = self.env['ir.config_parameter'].sudo().get_param('follow_up_3_notify_day')
+        follow_up_3_notify_date_set = datetime.date.today() + relativedelta(days=-int(follow_up_3_notify_day))
 
-        for followup_2_notify_date_dict in followup_2_notify_date_list:
+        for followup_notify_date_dict in followup_notify_date_list:
 
-            if followup_2_notify_date_dict.get('followup_2_notify_date') :
-                follow_up_2_notify_date_vals = eval(followup_2_notify_date_dict.get('followup_2_notify_date'))
+            if followup_notify_date_dict.get('followup_2_notify_date') :
+                follow_up_2_notify_date_vals = eval(followup_notify_date_dict.get('followup_2_notify_date'))
 
                 if 'tube-end-forming-explained' in follow_up_2_notify_date_vals :
-                    if str(follow_up_3_notify_date_set) == follow_up_2_notify_date_vals.get('tube-end-forming-explained'):
-                        mailing_contact_id = followup_2_notify_date_dict.get('id')
+                    if str(follow_up_2_notify_date_set) == follow_up_2_notify_date_vals.get('tube-end-forming-explained'):
+                        mailing_contact_id = followup_notify_date_dict.get('id')
                         contacts = self.env["mailing.contact"].sudo().browse(mailing_contact_id)
                         vals_customer_write = {}
                         if contacts.followup_3_notify_date:
                             followup_3_notify_date_dict = eval(contacts.followup_3_notify_date)
-                            followup_3_notify_date_dict['tube-end-forming-explained'] = str(follow_up_3_notify_date_set)
+                            followup_3_notify_date_dict['tube-end-forming-explained'] = str(follow_up_2_notify_date_set)
                             vals_customer_write['followup_3_notify_date'] = json.dumps(followup_3_notify_date_dict)
                         else:
-                            vals_customer_write['followup_3_notify_date'] = json.dumps({'tube-end-forming-explained': str(follow_up_3_notify_date_set)})
+                            vals_customer_write['followup_3_notify_date'] = json.dumps({'tube-end-forming-explained': str(follow_up_2_notify_date_set)})
 
                         write_mailing_contact = contacts.sudo().write(vals_customer_write)
 
-                        if followup_2_notify_date_dict.get('is_blacklisted') != True:
+                        if followup_notify_date_dict.get('is_blacklisted') != True:
                             contact_us_after_week_notify_email_template = self.env.ref('tube_form_marketing_automation.followup_2_tef_explained_email_template')
                             contact_us_after_week_notify_email_template.send_mail(mailing_contact_id,force_send=True)
 
 
+
+
+            if followup_notify_date_dict.get('followup_3_notify_date') :
+                follow_up_3_notify_date_vals = eval(followup_notify_date_dict.get('followup_3_notify_date'))
+
+                if 'tube-end-forming-explained' in follow_up_3_notify_date_vals :
+                    if str(follow_up_3_notify_date_set) == follow_up_3_notify_date_vals.get('tube-end-forming-explained'):
+                        mailing_contact_id = followup_notify_date_dict.get('id')
+
+                        if followup_notify_date_dict.get('is_blacklisted') != True:
+                            contact_us_after_week_notify_email_template = self.env.ref('tube_form_marketing_automation.followup_3_tef_explained_email_template')
+                            contact_us_after_week_notify_email_template.send_mail(mailing_contact_id,force_send=True)

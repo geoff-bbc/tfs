@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="followup_3_tef_explained_email_template" model="mail.template">
+            <field name="name">Follow Up 3 Tube End Forming Explained Email Template</field>
+            <field name="model_id" ref="mass_mailing.model_mailing_contact"/>
+            <field name="subject">Tube Form Solutions our goal is to empower people who design.</field>
+            <field name="email_from"></field>
+            <field name="email_to">{{object.email}}</field>
+            <field name="body_html" type="html">
+                <table border="0" cellpadding="0" cellspacing="0" style="padding:16px 0px 80px 0px;height:fit-content; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"><tr><td align="center">
+                    <table border="0" cellpadding="0" cellspacing="0" width="590" style="padding:16px 0px 16px 0px; background-color: white; color: #454748; border-collapse:separate;">
+                    <tbody>
+                        <tr>
+                            <td align="center" style="min-width: 590px;">
+                                <img src="/tube_form_marketing_automation/static/src/img/tfs.png" alt="Company logo" style='height:100px;margin-top:5px'/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="min-width: 630px;">
+                                <div style='padding:0px 16px 0px 16px;'>
+                                    <p style='color:rgb(74,105,135);font-size:larger;text-align:start'>Hi <b><span t-esc="object.name"/></b>,</p>
+                                </div>
+                                <div style='padding:0px 16px 0px 16px;'>
+                                    <p style='color:rgb(74,105,135);font-size:larger;text-align:justify'>At Tube Form Solutions our goal is to empower people who design. We don't just sell CNC tube benders; end formers, tooling, or fixtures, we provide solutions for the entire tube life cycle. Our commitment to transforming our customers' concepts into reality has led us to create the <a href="https://www.tubeformsolutions.com/blog"><u style="color:#FF0000">Tube Form Solutions blog</u></a>.</p>
+                                </div><br/>
+                                <div style='padding:0px 16px 0px 16px;'>
+                                    <p style='color:rgb(74,105,135);font-size:larger;text-align:justify'>The Tube Form Solutions blog is an avenue of communication that allows us to reach out and provide value to our customers. On our blog, you will find expert advice, insights, and bending solutions industry news. We also welcome any comments or questions you may have and invite you to share them with us either in the comments section or by reaching out to us directly on our <a href="https://www.tubeformsolutions.com/contact-us"><u style="color:#FF0000">contact us</u></a> page.</p>
+                                </div>
+                                <div style='padding:0px 16px 0px 16px;'>
+                                    <p style='color:rgb(74,105,135);font-size:larger;text-align:justify'>Please take a moment to visit our blog <a href="https://www.tubeformsolutions.com/blog"><u style="color:#FF0000">here</u></a>. We invite you to subscribe to the Tube Form Solutions blog to receive our latest articles, news, and updates.</p>
+                                </div><br/>
+                                <div style='padding:0px 16px 0px 16px;'>
+                                    <p style='color:rgb(74,105,135);font-size:larger;text-align:start'>Sincerely,</p>
+                                    <p style='color:rgb(74,105,135);font-size:larger;text-align:start;'>Tube From Solutions</p>
+                                </div>
+<!--                                <div style='padding:0px 16px 0px 16px;border:1px solid black;display:inline-flex;width:-webkit-fill-available'>-->
+<!--                                    <div style="border:1px solid black;height:50px;width:-webkit-fill-available;margin:5px 5px 5px 5px;">-->
+<!--                                       <img src="img_snowtops.jpg" alt="Alps"/>-->
+<!--                                       <div class="w3-container w3-center">-->
+<!--                                         <p>The Italian / Austrian Alps</p>-->
+<!--                                       </div>-->
+<!--                                    </div>-->
+<!--                                    <div style="border:1px solid black;height:;width:-webkit-fill-available;margin:5px 5px 5px 5px;">-->
+<!--                                       <img src="img_snowtops.jpg" alt="Alps"/>-->
+<!--                                       <div class="w3-container w3-center">-->
+<!--                                         <p>The Italian / Austrian Alps</p>-->
+<!--                                       </div>-->
+<!--                                    </div>-->
+<!--                                    <div style="border:1px solid black;height:50px;width:-webkit-fill-available;margin:5px 5px 5px 5px;">-->
+<!--                                       <img src="img_snowtops.jpg" alt="Alps"/>-->
+<!--                                       <div class="w3-container w3-center">-->
+<!--                                         <p>The Italian / Austrian Alps</p>-->
+<!--                                       </div>-->
+<!--                                    </div>-->
+<!--                                    <div style="border:1px solid black;height:50px;width:-webkit-fill-available;margin:5px 5px 5px 5px;">-->
+<!--                                       <img src="img_snowtops.jpg" alt="Alps"/>-->
+<!--                                       <div class="w3-container w3-center">-->
+<!--                                         <p>The Italian / Austrian Alps</p>-->
+<!--                                       </div>-->
+<!--                                    </div>-->
+<!--                                </div><br/>-->
+                            </td>
+                        </tr>
+                    </tbody>
+                    </table>
+                    <div style='padding:0px 16px 0px 32px;margin:30px 0px 45px 0px;'>
+                        <p style='color:rgb(74,105,135);font-size:small;text-align:center;margin:0px 0px 0px 0px;'>Tube From Solutions, 435 Roske Drive, Elkhart, Indiana 46516, United States, <a href="tel:574-295-5041">574-295-5041</a></p>
+                        <p style='text-align:center'><a t-attf-href="/unsubscribe-emailing-list?email={{object.email}}" style='color:#FF0000;font-size:small;'><u>Unsubscribe</u> <u>Manage</u> <u>preferences</u></a></p>
+                    </div>
+                    </td></tr>
+                </table>
+            </field>
+        </record>
+    </data>
+</odoo>
