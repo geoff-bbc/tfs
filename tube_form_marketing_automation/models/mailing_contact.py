@@ -64,7 +64,7 @@ class Mailing(models.Model):
         follow_up_2_notify_date_set = datetime.date.today() + relativedelta(days=-int(follow_up_2_notify_day))
         follow_up_3_notify_day = self.env['ir.config_parameter'].sudo().get_param('follow_up_3_notify_day')
         follow_up_3_notify_date_set = datetime.date.today() + relativedelta(days=-int(follow_up_3_notify_day))
-
+        follow_up_3_notify_date_set_today = datetime.date.today()
         for followup_notify_date_dict in followup_notify_date_list:
 
             if followup_notify_date_dict.get('followup_2_notify_date') :
@@ -77,10 +77,10 @@ class Mailing(models.Model):
                         vals_customer_write = {}
                         if contacts.followup_3_notify_date:
                             followup_3_notify_date_dict = eval(contacts.followup_3_notify_date)
-                            followup_3_notify_date_dict['tube-end-forming-explained'] = str(follow_up_2_notify_date_set)
+                            followup_3_notify_date_dict['tube-end-forming-explained'] = str(follow_up_3_notify_date_set_today)
                             vals_customer_write['followup_3_notify_date'] = json.dumps(followup_3_notify_date_dict)
                         else:
-                            vals_customer_write['followup_3_notify_date'] = json.dumps({'tube-end-forming-explained': str(follow_up_2_notify_date_set)})
+                            vals_customer_write['followup_3_notify_date'] = json.dumps({'tube-end-forming-explained': str(follow_up_3_notify_date_set_today)})
 
                         write_mailing_contact = contacts.sudo().write(vals_customer_write)
 
@@ -96,11 +96,11 @@ class Mailing(models.Model):
                         vals_customer_write = {}
                         if contacts.followup_3_notify_date:
                             followup_3_notify_date_dict = eval(contacts.followup_3_notify_date)
-                            followup_3_notify_date_dict['specifying-tube-bender-tooling'] = str(follow_up_2_notify_date_set)
+                            followup_3_notify_date_dict['specifying-tube-bender-tooling'] = str(follow_up_3_notify_date_set_today)
                             vals_customer_write['followup_3_notify_date'] = json.dumps(followup_3_notify_date_dict)
                         else:
                             vals_customer_write['followup_3_notify_date'] = json.dumps(
-                                {'specifying-tube-bender-tooling': str(follow_up_2_notify_date_set)})
+                                {'specifying-tube-bender-tooling': str(follow_up_3_notify_date_set_today)})
 
                         write_mailing_contact = contacts.sudo().write(vals_customer_write)
 
@@ -115,7 +115,7 @@ class Mailing(models.Model):
                         vals_customer_write = {}
                         if contacts.followup_3_notify_date:
                             followup_3_notify_date_dict = eval(contacts.followup_3_notify_date)
-                            followup_3_notify_date_dict['tube-bender-buying-checklist'] = str(follow_up_2_notify_date_set)
+                            followup_3_notify_date_dict['tube-bender-buying-checklist'] = str(follow_up_3_notify_date_set_today)
                             vals_customer_write['followup_3_notify_date'] = json.dumps(followup_3_notify_date_dict)
                         else:
                             vals_customer_write['followup_3_notify_date'] = json.dumps(
