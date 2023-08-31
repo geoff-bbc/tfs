@@ -74,7 +74,7 @@
                     </table>
                     <div style='padding:0px 16px 0px 32px;margin:30px 0px 45px 0px;'>
                         <p style='color:rgb(74,105,135);font-size:small;text-align:center;margin:0px 0px 0px 0px;'>Tube From Solutions, 435 Roske Drive, Elkhart, Indiana 46516, United States, <a href="tel:574-295-5041">574-295-5041</a></p>
-                        <p style='text-align:center'><a t-attf-href="/unsubscribe-email?email={{object.email}}" style='color:#FF0000;font-size:small;'><u>Unsubscribe</u> <u>Manage</u> <u>preferences</u></a></p>
+                        <p style='text-align:center'><a t-attf-href="/unsubscribe-emailing-list?email={{object.email}}" style='color:#FF0000;font-size:small;'><u>Unsubscribe</u> <u>Manage</u> <u>preferences</u></a></p>
                     </div>
                     </td></tr>
                 </table>
