@@ -63,7 +63,6 @@ class Mailing(models.Model):
         follow_up_2_notify_day = self.env['ir.config_parameter'].sudo().get_param('follow_up_2_notify_day')
         follow_up_2_notify_date_set = datetime.date.today() + relativedelta(days=-int(follow_up_2_notify_day))
         follow_up_3_notify_day = self.env['ir.config_parameter'].sudo().get_param('follow_up_3_notify_day')
-        follow_up_3_notify_date_set = datetime.date.today() + relativedelta(days=-int(follow_up_3_notify_day))
         follow_up_3_notify_date_set_today = datetime.date.today()
         for followup_notify_date_dict in followup_notify_date_list:
 
@@ -131,7 +130,7 @@ class Mailing(models.Model):
                 follow_up_3_notify_date_vals = eval(followup_notify_date_dict.get('followup_3_notify_date'))
 
                 if 'tube-end-forming-explained' in follow_up_3_notify_date_vals :
-                    if str(follow_up_3_notify_date_set) == follow_up_3_notify_date_vals.get('tube-end-forming-explained'):
+                    if str(follow_up_3_notify_date_set_today) == follow_up_3_notify_date_vals.get('tube-end-forming-explained'):
                         mailing_contact_id = followup_notify_date_dict.get('id')
 
                         if followup_notify_date_dict.get('is_blacklisted') != True:
