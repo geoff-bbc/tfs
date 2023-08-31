@@ -16,6 +16,7 @@
         'data/followup_1_section_modulus_calculator_email_template.xml',
         'data/followup_1_tube_bender_buying_email_template.xml',
         'data/followup_2_tef_explained_email_template.xml',
+        'data/followup_2_tube_bender_buying_email_template.xml',
         'data/followup_2_specifying_tube_bender_email_template.xml',
         'data/followup_3_tef_explained_email_template.xml',
         'data/completed_contact_us_form_cron.xml',

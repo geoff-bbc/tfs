@@ -88,7 +88,7 @@ class Mailing(models.Model):
                             contact_us_after_week_notify_email_template = self.env.ref('tube_form_marketing_automation.followup_2_tef_explained_email_template')
                             contact_us_after_week_notify_email_template.send_mail(mailing_contact_id,force_send=True)
 
-                elif 'specifying-tube-bender-tooling' in follow_up_2_notify_date_vals:
+                if 'specifying-tube-bender-tooling' in follow_up_2_notify_date_vals:
                     if str(follow_up_2_notify_date_set) == follow_up_2_notify_date_vals.get(
                             'specifying-tube-bender-tooling'):
                         mailing_contact_id = followup_notify_date_dict.get('id')
@@ -106,6 +106,25 @@ class Mailing(models.Model):
 
                         if followup_notify_date_dict.get('is_blacklisted') != True:
                             contact_us_after_week_notify_email_template = self.env.ref('tube_form_marketing_automation.followup_2_specifying_tube_bender_email_template')
+                            contact_us_after_week_notify_email_template.send_mail(mailing_contact_id, force_send=True)
+
+                if 'tube-bender-buying-checklist' in follow_up_2_notify_date_vals:
+                    if str(follow_up_2_notify_date_set) == follow_up_2_notify_date_vals.get('tube-bender-buying-checklist'):
+                        mailing_contact_id = followup_notify_date_dict.get('id')
+                        contacts = self.env["mailing.contact"].sudo().browse(mailing_contact_id)
+                        vals_customer_write = {}
+                        if contacts.followup_3_notify_date:
+                            followup_3_notify_date_dict = eval(contacts.followup_3_notify_date)
+                            followup_3_notify_date_dict['tube-bender-buying-checklist'] = str(follow_up_2_notify_date_set)
+                            vals_customer_write['followup_3_notify_date'] = json.dumps(followup_3_notify_date_dict)
+                        else:
+                            vals_customer_write['followup_3_notify_date'] = json.dumps(
+                                {'tube-bender-buying-checklist': str(follow_up_2_notify_date_set)})
+
+                        write_mailing_contact = contacts.sudo().write(vals_customer_write)
+
+                        if followup_notify_date_dict.get('is_blacklisted') != True:
+                            contact_us_after_week_notify_email_template = self.env.ref('tube_form_marketing_automation.followup_2_tube_bender_buying_email_template')
                             contact_us_after_week_notify_email_template.send_mail(mailing_contact_id, force_send=True)
 
             if followup_notify_date_dict.get('followup_3_notify_date') :
