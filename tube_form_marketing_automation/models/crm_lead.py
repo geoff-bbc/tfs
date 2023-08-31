@@ -17,7 +17,7 @@ class Lead(models.Model):
 
         page_url = request.httprequest.form.get('Page_url')
 
-        if page_url in ['tube-end-forming-explained','contact-us','section-modulus-calculator']:
+        if page_url in ['contact-us']:
 
             customer = self.env['res.partner'].sudo().search([('email', '=', vals_list['email_from'])], limit=1) or \
                        self.env['res.partner'].sudo().search([('phone', '=', vals_list['phone'])], limit=1)
@@ -79,11 +79,6 @@ class Lead(models.Model):
             if customer.is_blacklist != True and page_url == 'contact-us':
                 first_contact_us_form_email_template = self.env.ref('tube_form_marketing_automation.completed_contact_us_form_template')
                 first_contact_us_form_email_template.send_mail(customer.id, force_send=True)
-
-            elif customer.is_blacklist != True and page_url == 'tube-end-forming-explained':
-                followup_1_tef_explained= self.env.ref('tube_form_marketing_automation.followup_1_tef_explained_email_template')
-                followup_1_tef_explained.send_mail(customer.id, force_send=True)
-
 
             # send mike email notification to create a opportunity
             completed_contact_us_form_send_mike_email_template = self.env.ref('tube_form_marketing_automation.completed_contact_us_form_send_mike_email_template')
