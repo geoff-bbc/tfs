@@ -36,6 +36,10 @@ class Mailing(models.Model):
                     followup_1_tef_explained = self.env.ref('tube_form_marketing_automation.followup_1_tef_explained_email_template')
                     followup_1_tef_explained.send_mail(res.id, force_send=True)
 
+                elif res.is_blacklisted != True and page_url == 'specifying-tube-bender-tooling':
+                    followup_1_tef_explained = self.env.ref('tube_form_marketing_automation.followup_1_specifying_tube_bender_email_template')
+                    followup_1_tef_explained.send_mail(res.id, force_send=True)
+
             return res
         else:
             return super(Mailing, self).create(vals_list)
