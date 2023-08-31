@@ -19,10 +19,10 @@
                         <tr>
                             <td align="center" style="min-width: 630px;">
                                 <div style='padding:0px 16px 0px 16px;'>
-                                    <p style='color:rgb(74,105,135);font-size:larger;text-align:start'>Hi <b><span t-esc="object.name"/></b>,</p>
+                                    <p style='color:rgb(74,105,135);font-size:larger;text-align:start'>Hi ,</p>
                                 </div>
                                 <div style='padding:0px 16px 0px 16px;'>
-                                    <p style='color:rgb(74,105,135);font-size:larger;text-align:start'>Thank you for downloading our Specifying Tool Bending Tooling Checklist.</p>
+                                    <p style='color:rgb(74,105,135);font-size:larger;text-align:start'>Thank you for downloading our <i>Specifying Tool Bending Tooling Checklist</i>.</p>
                                 </div><br/>
                                 <div style='padding:0px 16px 0px 16px;'>
                                     <p style='color:rgb(74,105,135);font-size:larger;text-align:start'>Click this link to access your download at any time:</p>
@@ -31,14 +31,14 @@
                                     <ul>
                                         <li style="color:#000000;text-align:start;font-size:larger;"><a href="https://22168075.fs1.hubspotusercontent-na1.net/hubfs/22168075/Documents/Guide-to-specifying-tooling-for-a-tube-bender.pdf"><u style="color:#ff0000">Download the Specification Checklist</u></a>.</li>
                                     </ul>
-                                </div><br/>
+                                </div>
                                 <div style='padding:0px 16px 0px 16px;'>
-                                    <p style='color:rgb(74,105,135);font-size:larger;text-align:start'>Please reply to this email, call us at <a href="tel:574.266.5230">574.266.5230</a>, or use our <a href="https://www.tubeformsolutions.com/contact-us" style="color:#ff0000"><u>contact us</u></a> page if you have any questions.</p>
+                                    <p style='color:rgb(74,105,135);font-size:larger;text-align:start'>Please reply to this email, call us at 574.266.5230, or use our <a href="https://www.tubeformsolutions.com/contact-us" style="color:#ff0000"><u>contact us</u></a> page if you have any questions.</p>
                                 </div><br/>
                                 <div style='padding:0px 16px 0px 16px;'>
                                     <p style='color:rgb(74,105,135);font-size:larger;text-align:start'>Sincerely,</p>
                                     <p style='color:rgb(74,105,135);font-size:larger;text-align:start;'>Tube From Solutions</p>
-                                </div>
+                                </div><br/>
                                 <div style='padding:0px 16px 0px 16px;'>
                                     <p style='color:rgb(74,105,135);font-size:larger;text-align:start'>PS: Don't miss the latest articles on our <a href="https://www.tubeformsolutions.com/blog"><u style="color:#ff0000">blog</u></a>.</p>
                                 </div><br/>
