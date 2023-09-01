@@ -19,7 +19,7 @@ class Mailing(models.Model):
     def create(self, vals_list):
 
         page_url = request.httprequest.form.get('Download')
-        if page_url in ['Tube End Forming Explained','Checklist for Tube Bender Tooling Specs','Tube Section Modulus Calculator and Tube Bending Formulas','ROI Calculator','Tube Bender Buying Checklist']:
+        if page_url in ['Tube End Forming Explained','Checklist for Tube Bender Tooling Specs','Tube Section Modulus Calculator and Tube Bending Formulas','ROI Calculator','Tube Bender Buying Checklist']:
             form_data = request.httprequest.form
             maling_contact = self.env['mailing.contact'].sudo().search([('email','=',vals_list['email'])],limit=1)
             if form_data.get('country_id'):
@@ -68,7 +68,6 @@ class Mailing(models.Model):
                         'tube_form_marketing_automation.followup_1_tube_bender_buying_email_template')
                     followup_1_tef_explained.send_mail(maling_contact.id, force_send=True)
 
-                return maling_contact
 
             else:
                 res = super(Mailing, self).create(vals_list)
