@@ -13,126 +13,136 @@ class Mailing(models.Model):
 
     followup_2_notify_date = fields.Text(string="Follow Up 2 Notify Date")
     followup_3_notify_date = fields.Text(string="Follow Up 3 Notify Date")
+    mailing_contact_list_ids = fields.One2many('mailing.contact.list','mailing_contact_id',string="Mailing Contact List")
 
     @api.model
     def create(self, vals_list):
 
-        page_url = request.httprequest.form.get('Page_url')
-        if page_url in ['roi-calculator','tube-end-forming-explained','specifying-tube-bender-tooling','tube-bender-buying-checklist','section-modulus-calculator']:
-            follow_up_2_notify_date_set = datetime.date.today()
-            res = super(Mailing, self).create(vals_list)
-            vals_mailing_contact_create = {}
-            if res.followup_2_notify_date:
-                followup_2_notify_date_dict = eval(res.custom_data)
-                followup_2_notify_date_dict[page_url] = str(follow_up_2_notify_date_set)
-                vals_mailing_contact_create['followup_2_notify_date'] = json.dumps(followup_2_notify_date_dict)
+        page_url = request.httprequest.form.get('Download')
+        if page_url in ['Tube End Forming Explained','Checklist for Tube Bender Tooling Specs','Tube Section Modulus Calculator and Tube Bending Formulas','ROI Calculator','Tube Bender Buying Checklist']:
+            form_data = request.httprequest.form
+            maling_contact = self.env['mailing.contact'].sudo().search([('email','=',vals_list['email'])],limit=1)
+            if form_data.get('country_id'):
+                country_id = self.env["res.country"].sudo().browse(int(form_data.get('country_id'))).name
             else:
-                vals_mailing_contact_create['followup_2_notify_date'] = json.dumps({page_url: str(follow_up_2_notify_date_set)})
+                country_id = False
+            form_details_dict = {
+                'name': form_data.get('name'),
+                'email': form_data.get('email'),
+                'country': country_id,
+                'Phone Number' :form_data.get('Phone Number'),
+                'State / Province' : form_data.get('State / Province'),
+                'Best Describes Me' : form_data.get('Best Describes Me'),
+            }
 
-            res.sudo().write(vals_mailing_contact_create)
+            if maling_contact :
+                maling_contact.mailing_contact_list_ids.sudo().create({
+                    'creation_date' : datetime.datetime.now(),
+                    'form_name' : form_data.get('Download') ,
+                    'form_details' : json.dumps(form_details_dict),
+                    'mailing_contact_id' : maling_contact.id
+                })
 
-            if res :
-                if res.is_blacklisted != True and page_url == 'tube-end-forming-explained':
+                if page_url == 'Tube End Forming Explained':
+                    followup_1_tef_explained = self.env.ref(
+                        'tube_form_marketing_automation.followup_1_tef_explained_email_template')
+                    followup_1_tef_explained.send_mail(maling_contact.id, force_send=True)
+
+                elif page_url == 'Checklist for Tube Bender Tooling Specs':
+                    followup_1_tef_explained = self.env.ref(
+                        'tube_form_marketing_automation.followup_1_specifying_tube_bender_email_template')
+                    followup_1_tef_explained.send_mail(maling_contact.id, force_send=True)
+
+                elif page_url == 'ROI Calculator':
+                    followup_1_tef_explained = self.env.ref(
+                        'tube_form_marketing_automation.followup_1_roi_calculator_email_template')
+                    followup_1_tef_explained.send_mail(maling_contact.id, force_send=True)
+
+                elif page_url == 'Tube Section Modulus Calculator and Tube Bending Formulas':
+                    followup_1_tef_explained = self.env.ref(
+                        'tube_form_marketing_automation.followup_1_section_modulus_calculator_email_template')
+                    followup_1_tef_explained.send_mail(maling_contact.id, force_send=True)
+
+                elif page_url == 'Tube Bender Buying Checklist':
+                    followup_1_tef_explained = self.env.ref(
+                        'tube_form_marketing_automation.followup_1_tube_bender_buying_email_template')
+                    followup_1_tef_explained.send_mail(maling_contact.id, force_send=True)
+
+                return maling_contact
+
+            else:
+                res = super(Mailing, self).create(vals_list)
+
+                res.mailing_contact_list_ids.sudo().create({
+                    'creation_date' : datetime.datetime.now(),
+                    'form_name' : form_data.get('Download') ,
+                    'form_details' : json.dumps(form_details_dict),
+                    'mailing_contact_id' : res.id
+                })
+
+                if page_url == 'Tube End Forming Explained':
                     followup_1_tef_explained = self.env.ref('tube_form_marketing_automation.followup_1_tef_explained_email_template')
                     followup_1_tef_explained.send_mail(res.id, force_send=True)
 
-                elif res.is_blacklisted != True and page_url == 'specifying-tube-bender-tooling':
+                elif page_url == 'Checklist for Tube Bender Tooling Specs':
                     followup_1_tef_explained = self.env.ref('tube_form_marketing_automation.followup_1_specifying_tube_bender_email_template')
                     followup_1_tef_explained.send_mail(res.id, force_send=True)
 
-                elif res.is_blacklisted != True and page_url == 'roi-calculator':
+                elif page_url == 'ROI Calculator':
                     followup_1_tef_explained = self.env.ref('tube_form_marketing_automation.followup_1_roi_calculator_email_template')
                     followup_1_tef_explained.send_mail(res.id, force_send=True)
 
-                elif res.is_blacklisted != True and page_url == 'section-modulus-calculator':
+                elif page_url == 'Tube Section Modulus Calculator and Tube Bending Formulas':
                     followup_1_tef_explained = self.env.ref('tube_form_marketing_automation.followup_1_section_modulus_calculator_email_template')
                     followup_1_tef_explained.send_mail(res.id, force_send=True)
 
-                elif res.is_blacklisted != True and page_url == 'tube-bender-buying-checklist':
+                elif page_url == 'Tube Bender Buying Checklist':
                     followup_1_tef_explained = self.env.ref('tube_form_marketing_automation.followup_1_tube_bender_buying_email_template')
                     followup_1_tef_explained.send_mail(res.id, force_send=True)
 
-            return res
+                return res
         else:
             return super(Mailing, self).create(vals_list)
 
 
     def completed_mailing_contact_form_cron(self):
 
-        followup_notify_date_list = self.env["mailing.contact"].sudo().search_read([],['id','followup_2_notify_date','followup_3_notify_date','is_blacklisted'])
         follow_up_2_notify_day = self.env['ir.config_parameter'].sudo().get_param('follow_up_2_notify_day')
         follow_up_2_notify_date_set = datetime.date.today() + relativedelta(days=-int(follow_up_2_notify_day))
+        followup_2_notify_date_list = self.env["mailing.contact.list"].sudo().search([('creation_date','=',follow_up_2_notify_date_set)])
+        today_date = datetime.datetime.today()
+        for followup_2_notify_record in followup_2_notify_date_list:
+            if 'Tube End Forming Explained' == followup_2_notify_record.form_name:
+
+                write_mailing_contact = followup_2_notify_record.sudo().write({'followup_3_notify_date': today_date})
+
+                followup_2_tef_explained_email_template = self.env.ref('tube_form_marketing_automation.followup_2_tef_explained_email_template')
+                followup_2_tef_explained_email_template.send_mail(followup_2_notify_record.mailing_contact_id.id,force_send=True)
+
+
+            if 'Checklist for Tube Bender Tooling Specs' == followup_2_notify_record.form_name:
+
+                write_mailing_contact = followup_2_notify_record.sudo().write({'followup_3_notify_date': today_date})
+
+                followup_2_specifying_tube_bender_email_template = self.env.ref('tube_form_marketing_automation.followup_2_specifying_tube_bender_email_template')
+                followup_2_specifying_tube_bender_email_template.send_mail(followup_2_notify_record.mailing_contact_id.id, force_send=True)
+
+            if 'Tube Bender Buying Checklist' == followup_2_notify_record.form_name:
+
+                write_mailing_contact = followup_2_notify_record.sudo().write({'followup_3_notify_date': today_date})
+
+                followup_2_tube_bender_buying_email_template = self.env.ref('tube_form_marketing_automation.followup_2_tube_bender_buying_email_template')
+                followup_2_tube_bender_buying_email_template.send_mail(followup_2_notify_record.mailing_contact_id.id, force_send=True)
+
+
+
+        # Followup 3 send mail notification
+
         follow_up_3_notify_day = self.env['ir.config_parameter'].sudo().get_param('follow_up_3_notify_day')
-        follow_up_3_notify_date_set_today = datetime.date.today()
-        for followup_notify_date_dict in followup_notify_date_list:
+        follow_up_3_notify_date_set = datetime.date.today() + relativedelta(days=-(int(follow_up_3_notify_day)))
+        followup_3_notify_date_list = self.env["mailing.contact.list"].sudo().search([('followup_3_notify_date', '=', follow_up_3_notify_date_set)])
 
-            if followup_notify_date_dict.get('followup_2_notify_date') :
-                follow_up_2_notify_date_vals = eval(followup_notify_date_dict.get('followup_2_notify_date'))
-
-                if 'tube-end-forming-explained' in follow_up_2_notify_date_vals :
-                    if str(follow_up_2_notify_date_set) == follow_up_2_notify_date_vals.get('tube-end-forming-explained'):
-                        mailing_contact_id = followup_notify_date_dict.get('id')
-                        contacts = self.env["mailing.contact"].sudo().browse(mailing_contact_id)
-                        vals_customer_write = {}
-                        if contacts.followup_3_notify_date:
-                            followup_3_notify_date_dict = eval(contacts.followup_3_notify_date)
-                            followup_3_notify_date_dict['tube-end-forming-explained'] = str(follow_up_3_notify_date_set_today)
-                            vals_customer_write['followup_3_notify_date'] = json.dumps(followup_3_notify_date_dict)
-                        else:
-                            vals_customer_write['followup_3_notify_date'] = json.dumps({'tube-end-forming-explained': str(follow_up_3_notify_date_set_today)})
-
-                        write_mailing_contact = contacts.sudo().write(vals_customer_write)
-
-                        if followup_notify_date_dict.get('is_blacklisted') != True:
-                            contact_us_after_week_notify_email_template = self.env.ref('tube_form_marketing_automation.followup_2_tef_explained_email_template')
-                            contact_us_after_week_notify_email_template.send_mail(mailing_contact_id,force_send=True)
-
-                if 'specifying-tube-bender-tooling' in follow_up_2_notify_date_vals:
-                    if str(follow_up_2_notify_date_set) == follow_up_2_notify_date_vals.get(
-                            'specifying-tube-bender-tooling'):
-                        mailing_contact_id = followup_notify_date_dict.get('id')
-                        contacts = self.env["mailing.contact"].sudo().browse(mailing_contact_id)
-                        vals_customer_write = {}
-                        if contacts.followup_3_notify_date:
-                            followup_3_notify_date_dict = eval(contacts.followup_3_notify_date)
-                            followup_3_notify_date_dict['specifying-tube-bender-tooling'] = str(follow_up_3_notify_date_set_today)
-                            vals_customer_write['followup_3_notify_date'] = json.dumps(followup_3_notify_date_dict)
-                        else:
-                            vals_customer_write['followup_3_notify_date'] = json.dumps(
-                                {'specifying-tube-bender-tooling': str(follow_up_3_notify_date_set_today)})
-
-                        write_mailing_contact = contacts.sudo().write(vals_customer_write)
-
-                        if followup_notify_date_dict.get('is_blacklisted') != True:
-                            contact_us_after_week_notify_email_template = self.env.ref('tube_form_marketing_automation.followup_2_specifying_tube_bender_email_template')
-                            contact_us_after_week_notify_email_template.send_mail(mailing_contact_id, force_send=True)
-
-                if 'tube-bender-buying-checklist' in follow_up_2_notify_date_vals:
-                    if str(follow_up_2_notify_date_set) == follow_up_2_notify_date_vals.get('tube-bender-buying-checklist'):
-                        mailing_contact_id = followup_notify_date_dict.get('id')
-                        contacts = self.env["mailing.contact"].sudo().browse(mailing_contact_id)
-                        vals_customer_write = {}
-                        if contacts.followup_3_notify_date:
-                            followup_3_notify_date_dict = eval(contacts.followup_3_notify_date)
-                            followup_3_notify_date_dict['tube-bender-buying-checklist'] = str(follow_up_3_notify_date_set_today)
-                            vals_customer_write['followup_3_notify_date'] = json.dumps(followup_3_notify_date_dict)
-                        else:
-                            vals_customer_write['followup_3_notify_date'] = json.dumps(
-                                {'tube-bender-buying-checklist': str(follow_up_2_notify_date_set)})
-
-                        write_mailing_contact = contacts.sudo().write(vals_customer_write)
-
-                        if followup_notify_date_dict.get('is_blacklisted') != True:
-                            contact_us_after_week_notify_email_template = self.env.ref('tube_form_marketing_automation.followup_2_tube_bender_buying_email_template')
-                            contact_us_after_week_notify_email_template.send_mail(mailing_contact_id, force_send=True)
-
-            if followup_notify_date_dict.get('followup_3_notify_date') :
-                follow_up_3_notify_date_vals = eval(followup_notify_date_dict.get('followup_3_notify_date'))
-
-                if 'tube-end-forming-explained' in follow_up_3_notify_date_vals :
-                    if str(follow_up_3_notify_date_set_today) == follow_up_3_notify_date_vals.get('tube-end-forming-explained'):
-                        mailing_contact_id = followup_notify_date_dict.get('id')
-
-                        if followup_notify_date_dict.get('is_blacklisted') != True:
-                            contact_us_after_week_notify_email_template = self.env.ref('tube_form_marketing_automation.followup_3_tef_explained_email_template')
-                            contact_us_after_week_notify_email_template.send_mail(mailing_contact_id,force_send=True)
+        for followup_3_notify_record in followup_3_notify_date_list :
+            if 'Tube End Forming Explained' == followup_3_notify_record.form_name:
+                contact_us_after_week_notify_email_template = self.env.ref('tube_form_marketing_automation.followup_3_tef_explained_email_template')
+                contact_us_after_week_notify_email_template.send_mail(followup_3_notify_record.mailing_contact_id.id,force_send=True)
