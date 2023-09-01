@@ -4,7 +4,9 @@ from odoo.http import request
 import datetime
 from dateutil.relativedelta import relativedelta
 import json
+import logging
 
+_logger = logging.getLogger(__name__)
 
 
 
@@ -19,7 +21,8 @@ class Mailing(models.Model):
     def create(self, vals_list):
 
         page_url = request.httprequest.form.get('Download')
-        if page_url in ['Tube End Forming Explained','Checklist for Tube Bender Tooling Specs','Tube Section Modulus Calculator\xa0and Tube Bending Formulas','ROI Calculator','Tube Bender Buying Checklist']:
+        _logger.info(_('''Downloading hidden Fields Value :-  %s''' % page_url))
+        if page_url in ['Tube End Forming Explained','Checklist for Tube Bender Tooling Specs','Tube Section Modulus Calculator and Tube Bending Formulas','ROI Calculator','Tube Bender Buying Checklist']:
             form_data = request.httprequest.form
             maling_contact = self.env['mailing.contact'].sudo().search([('email','=',vals_list['email'])],limit=1)
             if form_data.get('country_id'):
