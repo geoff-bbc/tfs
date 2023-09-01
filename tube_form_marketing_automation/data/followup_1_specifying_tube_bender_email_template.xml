@@ -41,33 +41,13 @@
                                 </div><br/>
                                 <div style='padding:0px 16px 0px 16px;'>
                                     <p style='color:rgb(74,105,135);font-size:larger;text-align:start'>PS: Don't miss the latest articles on our <a href="https://www.tubeformsolutions.com/blog"><u style="color:#ff0000">blog</u></a>.</p>
-                                </div><br/>
-<!--                                <div style='padding:0px 16px 0px 16px;border:1px solid black;display:inline-flex;width:-webkit-fill-available'>-->
-<!--                                    <div style="border:1px solid black;height:50px;width:-webkit-fill-available;margin:5px 5px 5px 5px;">-->
-<!--                                       <img src="img_snowtops.jpg" alt="Alps"/>-->
-<!--                                       <div class="w3-container w3-center">-->
-<!--                                         <p>The Italian / Austrian Alps</p>-->
-<!--                                       </div>-->
-<!--                                    </div>-->
-<!--                                    <div style="border:1px solid black;height:;width:-webkit-fill-available;margin:5px 5px 5px 5px;">-->
-<!--                                       <img src="img_snowtops.jpg" alt="Alps"/>-->
-<!--                                       <div class="w3-container w3-center">-->
-<!--                                         <p>The Italian / Austrian Alps</p>-->
-<!--                                       </div>-->
-<!--                                    </div>-->
-<!--                                    <div style="border:1px solid black;height:50px;width:-webkit-fill-available;margin:5px 5px 5px 5px;">-->
-<!--                                       <img src="img_snowtops.jpg" alt="Alps"/>-->
-<!--                                       <div class="w3-container w3-center">-->
-<!--                                         <p>The Italian / Austrian Alps</p>-->
-<!--                                       </div>-->
-<!--                                    </div>-->
-<!--                                    <div style="border:1px solid black;height:50px;width:-webkit-fill-available;margin:5px 5px 5px 5px;">-->
-<!--                                       <img src="img_snowtops.jpg" alt="Alps"/>-->
-<!--                                       <div class="w3-container w3-center">-->
-<!--                                         <p>The Italian / Austrian Alps</p>-->
-<!--                                       </div>-->
-<!--                                    </div>-->
-<!--                                </div><br/>-->
+                                </div>
+                                <div style='padding:16px;'>
+                                    <a style="display:inline-block;padding-right:5px"  href="https://m.facebook.com/TubeFormSolutions/"><img src="/tube_form_marketing_automation/static/src/img/facebook.png" style='background-color:rgb(61,90,152);border-radius: 50%;width:35px;'/></a>
+                                    <a style="display:inline-block;padding-right:5px"  href="https://www.youtube.com/user/tubeformsolutions"><img src="/tube_form_marketing_automation/static/src/img/youtube.png" style='background-color:rgb(229,77,4);border-radius: 50%;width:35px;'/></a>
+                                    <a style="display:inline-block;padding-right:5px"  href="https://twitter.com/Tube_form"><img src="/tube_form_marketing_automation/static/src/img/twitter.png" style='background-color:rgb(60,162,242);border-radius: 50%;width:35px;'/></a>
+                                    <a style="display:inline-block"  href="https://www.linkedin.com/company/tube-form-solutions/"><img src="/tube_form_marketing_automation/static/src/img/Linkedin.png" style='color:rgb(42,120,181);width:35px;margin:0px 0px 0px 0px;'/></a>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
