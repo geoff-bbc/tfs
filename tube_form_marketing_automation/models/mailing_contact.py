@@ -117,26 +117,29 @@ class Mailing(models.Model):
         for followup_2_notify_record in followup_2_notify_date_list:
             if 'Tube End Forming Explained' == followup_2_notify_record.form_name:
 
-                write_mailing_contact = followup_2_notify_record.sudo().write({'followup_3_notify_date': today_date})
-
                 followup_2_tef_explained_email_template = self.env.ref('tube_form_marketing_automation.followup_2_tef_explained_email_template')
-                followup_2_tef_explained_email_template.send_mail(followup_2_notify_record.mailing_contact_id.id,force_send=True)
+                email = followup_2_tef_explained_email_template.send_mail(followup_2_notify_record.mailing_contact_id.id,force_send=True)
 
+                if email:
+                    write_mailing_contact = followup_2_notify_record.sudo().write({'followup_3_notify_date': today_date})
 
             if 'Checklist for Tube Bender Tooling Specs' == followup_2_notify_record.form_name:
 
-                write_mailing_contact = followup_2_notify_record.sudo().write({'followup_3_notify_date': today_date})
-
                 followup_2_specifying_tube_bender_email_template = self.env.ref('tube_form_marketing_automation.followup_2_specifying_tube_bender_email_template')
-                followup_2_specifying_tube_bender_email_template.send_mail(followup_2_notify_record.mailing_contact_id.id, force_send=True)
+                email = followup_2_specifying_tube_bender_email_template.send_mail(followup_2_notify_record.mailing_contact_id.id, force_send=True)
+
+                if email:
+                    write_mailing_contact = followup_2_notify_record.sudo().write(
+                        {'followup_3_notify_date': today_date})
 
             if 'Tube Bender Buying Checklist' == followup_2_notify_record.form_name:
 
-                write_mailing_contact = followup_2_notify_record.sudo().write({'followup_3_notify_date': today_date})
-
                 followup_2_tube_bender_buying_email_template = self.env.ref('tube_form_marketing_automation.followup_2_tube_bender_buying_email_template')
-                followup_2_tube_bender_buying_email_template.send_mail(followup_2_notify_record.mailing_contact_id.id, force_send=True)
+                email = followup_2_tube_bender_buying_email_template.send_mail(followup_2_notify_record.mailing_contact_id.id, force_send=True)
 
+                if email:
+                    write_mailing_contact = followup_2_notify_record.sudo().write(
+                        {'followup_3_notify_date': today_date})
 
 
         # Followup 3 send mail notification
