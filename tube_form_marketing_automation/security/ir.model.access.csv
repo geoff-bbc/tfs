@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_mailing_contact_list,access.mailing.contact.list,model_mailing_contact_list,,1,1,1,1
+access_form_partner_list,access.form.partner.list,model_form_partner_list,,1,1,1,1
