@@ -15,10 +15,10 @@ class Lead(models.Model):
     @api.model
     def create(self, vals_list):
 
-        page_url = request.httprequest.form.get('Page_url')
+        page_url = request.httprequest.form.get('Download')
 
-        if page_url in ['contact-us']:
-
+        if page_url in ['Contact Us']:
+            page_details = request.httprequest.form
             customer = self.env['res.partner'].sudo().search([('email', '=', vals_list['email_from'])], limit=1) or \
                        self.env['res.partner'].sudo().search([('phone', '=', vals_list['phone'])], limit=1)
 
@@ -42,14 +42,6 @@ class Lead(models.Model):
                     'x_studio_primary_business_relationship': 'Customer / Prospect'
                 }
 
-                if customer.followup_2_notify_date :
-                    followup_2_notify_date_dict = eval(customer.followup_2_notify_date)
-                    followup_2_notify_date_dict[page_url] = str(follow_up_2_notify_date_set)
-                    vals_customer_write['followup_2_notify_date'] = json.dumps(followup_2_notify_date_dict)
-                else:
-                    vals_customer_write['followup_2_notify_date'] = json.dumps({page_url: str(follow_up_2_notify_date_set)})
-
-
                 new_customer = self.env['res.partner'].browse(customer.id).sudo().write(vals_customer_write)
 
             else:
@@ -59,24 +51,26 @@ class Lead(models.Model):
                     'email': vals_list['email_from'],
                     'parent_id': company_id.id,
                     'user_id': user_id.id,
-                    'x_studio_primary_business_relationship': 'Customer / Prospect'
                 }
-                if customer.followup_2_notify_date :
-                    followup_2_notify_date_dict = eval(customer.custom_data)
-                    followup_2_notify_date_dict[page_url] = str(follow_up_2_notify_date_set)
-                    vals_customer_create['followup_2_notify_date'] = json.dumps(followup_2_notify_date_dict)
-                else:
-                    vals_customer_create['followup_2_notify_date'] = json.dumps({page_url: str(follow_up_2_notify_date_set)})
 
                 #  create new customer ----
                 customer = self.env['res.partner'].sudo().create(vals_customer_create)
             vals_list['partner_id'] = customer.id
-
             res = super(Lead, self).create(vals_list)
+
+            customer.form_partner_list_ids.sudo().create({
+                'followup_2_date': follow_up_2_notify_date_set,
+                'form_name': page_url,
+                'name' : vals_list['contact_name'],
+                'email' : vals_list['email_from'],
+                'form_partner_list_id' : customer.id,
+                'crm_lead_id' : res.id
+            })
+
             base_url = self.get_base_url()
 
             # send first email notification customer
-            if customer.is_blacklist != True and page_url == 'contact-us':
+            if customer.is_blacklist != True and page_url == 'Contact Us':
                 first_contact_us_form_email_template = self.env.ref('tube_form_marketing_automation.completed_contact_us_form_template')
                 first_contact_us_form_email_template.send_mail(customer.id, force_send=True)
 
