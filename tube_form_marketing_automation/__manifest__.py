@@ -20,6 +20,7 @@
         'data/followup_2_tube_bender_buying_email_template.xml',
         'data/followup_2_specifying_tube_bender_email_template.xml',
         'data/followup_3_tef_explained_email_template.xml',
+        'data/workflow_3_subscribe_email_template.xml',
         'data/completed_contact_us_form_cron.xml',
         'data/completed_mailing_contact_form_cron.xml',
         'views/res_config_settings_views.xml',
