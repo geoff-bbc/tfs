@@ -5,7 +5,7 @@
     'author': 'Silent Infotech Pvt. Ltd.',
     'website': 'https://silentinfotech.com',
     'license': 'LGPL-3',
-    'depends': ['base','website','crm','contacts','mass_mailing','mail'],
+    'depends': ['base','website','crm','contacts','mass_mailing','mail','website_blog'],
     'data': [
         'security/ir.model.access.csv',
         'data/completed_contact_us_form_template.xml',
@@ -21,6 +21,8 @@
         'data/followup_2_specifying_tube_bender_email_template.xml',
         'data/followup_3_tef_explained_email_template.xml',
         'data/workflow_3_subscribe_email_template.xml',
+        'data/workflow_3_blog_notification_email_template.xml',
+        'data/workflow_3_blog_page_template_cron.xml',
         'data/completed_contact_us_form_cron.xml',
         'data/completed_mailing_contact_form_cron.xml',
         'views/res_config_settings_views.xml',
