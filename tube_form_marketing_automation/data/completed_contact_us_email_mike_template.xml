@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <data>
+    <data noupdate="1">
         <record id="completed_contact_us_form_send_mike_email_template" model="mail.template">
             <field name="name">Completed Contact Us From Send Mike Email Template</field>
             <field name="model_id" ref="crm.model_crm_lead"/>
             <field name="subject">New Opportunity Has Been Created.</field>
             <field name="email_from"></field>
+            <field name="reply_to">mike.thomas@tfs-corp.com</field>
             <field name="email_to">{{object.partner_id.user_id.login}}</field>
             <field name="body_html" type="html">
                 <table border="0" cellpadding="0" cellspacing="0" style="padding:16px 0px 16px 0px;height:fit-content; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"><tr><td align="center">
