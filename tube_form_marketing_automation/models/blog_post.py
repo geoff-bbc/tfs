@@ -2,8 +2,8 @@
 
 from odoo import _,api, fields, models, tools, SUPERUSER_ID
 from odoo.http import request
-from datetime import datetime
 import datetime
+from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 
@@ -13,8 +13,8 @@ class BlogPost(models.Model):
 
 
     def workflow_3_blog_page_template_cron(self):
-
-        blog_post_list = self.env["blog.post"].search([])
+        today = datetime.now().date()
+        blog_post_list = self.env["blog.post"].search([]).filtered(lambda a:a.post_date.strftime("%Y-%m-%d") == today.strftime("%Y-%m-%d"))
 
         for blog_post in blog_post_list:
             blog_background_image_url = eval(blog_post.cover_properties).get('background-image')
@@ -29,9 +29,13 @@ class BlogPost(models.Model):
 
             formatted_post_datetime = post_input_datetime.strftime("%b %d, %Y")
 
+            # Enter a contact email id
+            email_to = ''
+
             blog_post_context = {
                 'blog_background_image_url' : blog_background_image_url,
-                'post_date' :formatted_post_datetime
+                'post_date' :formatted_post_datetime,
+                'email_to': email_to if email_to else ''
             }
 
             contact_us_after_week_notify_email_template = self.env.ref(
