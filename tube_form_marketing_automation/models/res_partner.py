@@ -16,19 +16,17 @@ class ResPartner(models.Model):
     form_partner_list_ids = fields.One2many('form.partner.list','form_partner_list_id')
 
     def completed_contact_us_form_cron(self):
+        # 1 week follow up mail send process
+        follow_up_week_notify_date = datetime.date.today() + relativedelta(days=-7)
+        followup_week_notify_date_list = self.env["form.partner.list"].sudo().search([('followup_2_date','=',follow_up_week_notify_date)])
 
-        follow_up_2_notify_day = self.env['ir.config_parameter'].sudo().get_param('follow_up_2_notify_day')
-        follow_up_3_notify_date_set = datetime.date.today() + relativedelta(days=-int(follow_up_2_notify_day))
-        followup_2_notify_date_list = self.env["form.partner.list"].sudo().search([('followup_2_date','=',follow_up_3_notify_date_set)])
+        for followup_week_notify_record in followup_week_notify_date_list:
 
+            if followup_week_notify_record.form_name == 'Contact Us':
 
-        for followup_2_notify_record in followup_2_notify_date_list:
-
-            if followup_2_notify_record.form_name == 'Contact Us':
-
-                if followup_2_notify_record.form_partner_list_id.is_blacklist != True:
+                if followup_week_notify_record.form_partner_list_id.is_blacklist != True:
                     contact_us_after_week_notify_email_template = self.env.ref('tube_form_marketing_automation.completed_contact_us_form_after_week_template')
-                    contact_us_after_week_notify_email_template.send_mail(followup_2_notify_record.id,force_send=True)
+                    contact_us_after_week_notify_email_template.send_mail(followup_week_notify_record.id,force_send=True)
 
 
     @api.onchange('is_blacklist')
