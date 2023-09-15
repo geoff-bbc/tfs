@@ -81,5 +81,9 @@ class Lead(models.Model):
             return res
 
         else:
-            return super(Lead, self).create(vals_list)
+            res = super(Lead, self).create(vals_list)
+            # send mike email notification to create a opportunity
+            completed_contact_us_form_send_mike_email_template = self.env.ref('tube_form_marketing_automation.completed_contact_us_form_send_mike_email_template')
+            completed_contact_us_form_send_mike_email_template.send_mail(res.id,force_send=True)
+            return res
 
