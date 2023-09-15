@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data noupdate="1">
+        <!-- Send while contact us form filled and lead generated oppotunity mail-->
         <record id="completed_contact_us_form_send_mike_email_template" model="mail.template">
             <field name="name">Completed Contact Us From Send Mike Email Template</field>
             <field name="model_id" ref="crm.model_crm_lead"/>
