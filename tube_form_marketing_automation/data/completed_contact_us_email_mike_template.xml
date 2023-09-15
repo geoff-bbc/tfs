@@ -68,6 +68,7 @@
                                  <div style='padding:0px 16px 0px 16px;'>
                                      <p style='color:rgb(74,105,135);font-size:initial;text-align:start;margin-bottom:0px'>Opportunities can get created way:</p>
                                     <ul>
+                                        <li style='color:rgb(74,105,135);text-align:start'>a salesperson uses the CRM app within Odoo</li>
                                         <li style='color:rgb(74,105,135);text-align:start'>a public user submits a form via Contact Us Form one of the websites</li>
                                     </ul>
                                 </div><br/>
