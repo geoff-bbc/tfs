@@ -22,12 +22,12 @@
         'data/followup_3_tef_explained_email_template.xml',
         'data/workflow_3_subscribe_email_template.xml',
         'data/workflow_3_blog_notification_email_template.xml',
-        'data/workflow_3_blog_page_template_cron.xml',
         'data/completed_contact_us_form_cron.xml',
         'data/completed_mailing_contact_form_cron.xml',
         'views/res_config_settings_views.xml',
         'views/res_partner_views.xml',
-        'views/mailing_contact_views.xml'
+        'views/mailing_contact_views.xml',
+        'views/share_this_post.xml'
     ],
     'application': False,
     'installable': True,
