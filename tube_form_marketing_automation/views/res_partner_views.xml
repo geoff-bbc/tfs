@@ -24,6 +24,7 @@
                             <field name="form_partner_list_id" invisible="1"/>
                             <field name="form_name"/>
                             <field name="crm_lead_id"/>
+                            <field name="duplicate_under_90_days" invisible="1"/>
                         </tree>
                     </field>
                 </page>

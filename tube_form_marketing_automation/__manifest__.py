@@ -27,7 +27,8 @@
         'views/res_config_settings_views.xml',
         'views/res_partner_views.xml',
         'views/mailing_contact_views.xml',
-        'views/share_this_post.xml'
+        'views/share_this_post.xml',
+        'views/crm_lead_view.xml',
     ],
     'application': False,
     'installable': True,
