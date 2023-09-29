@@ -61,6 +61,10 @@
                                                     <td style="border:1pt solid black;"><span>Notes From Customer</span></td>
                                                     <td style="border:1pt solid black;"><span t-esc="object.x_studio_notes_from_customer"/></td>
                                                 </tr>
+                                                <tr style="font-size:initial;padding:10px;">
+                                                    <td style="border:1pt solid black;"><span>Contact Support Page</span></td>
+                                                    <td style="border:1pt solid black;"><span t-esc="object.contact_support_page"/></td>
+                                                </tr>
                                             </t>
                                         </tbody>
                                     </table>

@@ -17,12 +17,13 @@ class ResPartner(models.Model):
 
     def completed_contact_us_form_cron(self):
         # 1 week follow up mail send process
+        contact_pages = ['Tube Bending Support','Order Tube Bender Parts','Tube Fabrication Machine Leasing','Tube Bender Rebuilds & Upgrades','Premium Metal Forming Lubricants','Tube Bender Maintenance & Repair Service','Training Solutions for Tube Forming Industry']
         follow_up_week_notify_date = datetime.date.today() + relativedelta(days=-7)
-        followup_week_notify_date_list = self.env["form.partner.list"].sudo().search([('followup_2_date','=',follow_up_week_notify_date)])
+        followup_week_notify_date_list = self.env["form.partner.list"].sudo().search([('followup_2_date','=',follow_up_week_notify_date),('duplicate_under_90_days','!=',True)])
 
         for followup_week_notify_record in followup_week_notify_date_list:
 
-            if followup_week_notify_record.form_name == 'Contact Us':
+            if followup_week_notify_record.form_name == 'Contact Us' or followup_week_notify_record.form_name in contact_pages:
 
                 if followup_week_notify_record.form_partner_list_id.is_blacklist != True:
                     contact_us_after_week_notify_email_template = self.env.ref('tube_form_marketing_automation.completed_contact_us_form_after_week_template')
@@ -46,4 +47,6 @@ class FormPartnerList(models.Model):
     email = fields.Char('Email')
     followup_2_date = fields.Date('Date')
     crm_lead_id = fields.Many2one('crm.lead',string = 'CRM Lead')
+    duplicate_under_90_days = fields.Boolean(string='Duplicate Under 90 Days')
+
 
