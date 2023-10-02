@@ -66,7 +66,8 @@ class Lead(models.Model):
 
             date_before_90_days_ago = datetime.date.today() + relativedelta(days=-90)
             partner_enrolled = customer.form_partner_list_ids.sudo().filtered(lambda p: p.followup_2_date > date_before_90_days_ago and not p.duplicate_under_90_days and (p.form_name in contact_pages or p.form_name == 'Contact Us'))
-            vals_list['duplicate_under_90_days'] =  True
+            if partner_enrolled:
+                vals_list['duplicate_under_90_days'] =  True
             vals_list['contact_support_page'] = contact_support_page if contact_support_page else page_url
 
             res = super(Lead, self).create(vals_list)
