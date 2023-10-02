@@ -11,9 +11,9 @@ _logger = logging.getLogger(__name__)
 class BlogPost(models.Model):
     _inherit = "blog.post"
 
-
-    def create(self, vals):
-        res = super(BlogPost, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        res = super(BlogPost, self).create(vals_list)
         # Check if the blog is published
         for record in res:
             if record.is_published:
