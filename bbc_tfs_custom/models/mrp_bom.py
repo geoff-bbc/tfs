@@ -24,15 +24,15 @@ class MrpBom(models.Model):
         
         #document_id = self.browse(cr, uid, ids[0]).id
 
-        view = models.get_object_reference(cr, uid, name, view)
-        view_id = view and view[1] or False
+        #view = models.get_object_reference(cr, uid, name, view)
+        #view_id = view and view[1] or False
 
 
         return {
             'name': (name),
             'view_type': 'form',
             'view_mode': 'form',
-            'view_id': [view_id],
+            'view_id': 732,
             'res_model': res_model, 
             'type': 'ir.actions.act_window',
             'nodestroy': True,
