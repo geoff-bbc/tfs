@@ -22,7 +22,7 @@ class MrpBom(models.Model):
         res_model = 'mrp.bom.line' 
         view_name = 'mrp.bom.line.view.form'
         
-        document_id = self.browse(cr, uid, ids[0]).id
+        #document_id = self.browse(cr, uid, ids[0]).id
 
         view = models.get_object_reference(cr, uid, name, view)
         view_id = view and view[1] or False
