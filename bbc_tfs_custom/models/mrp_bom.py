@@ -16,9 +16,7 @@ _logger = logging.getLogger(__name__)
 class MrpBom(models.Model):
     _inherit = 'mrp.bom.line'
 
-    def open_to_form_view(self, context=None):
-        if not context:
-            context = {}
+    def open_to_form_view(self):
 
         name = 'Component'
         res_model = 'mrp.bom.line' 
@@ -39,5 +37,5 @@ class MrpBom(models.Model):
             'type': 'ir.actions.act_window',
             'nodestroy': True,
             'target': 'current',
-            'res_id': document_id,
+            'res_id': 25
         }
