@@ -16,7 +16,7 @@ _logger = logging.getLogger(__name__)
 class MrpBom(models.Model):
     _inherit = 'mrp.bom.line'
 
-    def open_to_form_view(self, cr, uid, ids, context=None):
+    def open_to_form_view(self, context=None):
         if not context:
             context = {}
 
