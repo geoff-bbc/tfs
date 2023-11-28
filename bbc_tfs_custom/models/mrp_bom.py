@@ -37,5 +37,8 @@ class MrpBom(models.Model):
             'type': 'ir.actions.act_window',
             'nodestroy': True,
             'target': 'current',
-            'res_id': 25
+            'res_id': 25,
+            'flags':{
+                'mode':'edit'
+                }
         }
