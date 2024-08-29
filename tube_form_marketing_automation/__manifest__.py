@@ -1,7 +1,7 @@
 {
     'name': 'Tube From Marketing Automation',
     'summary': 'Tube From Marketing Automation',
-    'version': '16.0.0.0',
+    'version': '17.0.0.0',
     'author': 'Silent Infotech Pvt. Ltd.',
     'website': 'https://silentinfotech.com',
     'license': 'LGPL-3',

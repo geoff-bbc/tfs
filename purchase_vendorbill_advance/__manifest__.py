@@ -7,7 +7,7 @@
     This module extends the functionality of Odoo 16 to add prepayments (down payments)
     for the purchase order.
         """,
-    "version": "16.0.1.1.2",
+    "version": "17.0.1.1.2",
     "category": "Purchase",
     "website": "https://sodexis.com/",
     "author": "Sodexis",
