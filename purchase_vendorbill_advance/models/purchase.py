@@ -1,107 +1,15 @@
-# Copyright 2019-2022 Sodexis
+# Copyright 2019-2023 Sodexis
 # License OPL-1 (See LICENSE file for full copyright and licensing details)
+
+from itertools import groupby
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools import float_is_zero
-from odoo.tools.safe_eval import safe_eval
-
-
-class PurchaseOrderLine(models.Model):
-    _inherit = "purchase.order.line"
-
-    is_downpayment = fields.Boolean(
-        string="Is a down payment",
-        help="Down payments are made when creating invoices from a purchase order."
-        " They are not copied when duplicating a purchase order.",
-    )
-
-    def unlink(self):
-        if self.filtered(
-            lambda line: line.state in ("purchase", "done")
-            and (line.invoice_lines or not line.is_downpayment)
-        ):
-            raise UserError(
-                _(
-                    """You can not remove an order line once the Purchase order is confirmed.\n
-                    You should rather set the quantity to 0."""
-                )
-            )
-        return super().unlink()
-
-    @api.depends("product_qty", "price_unit", "taxes_id")
-    def _compute_amount(self):
-        res = super()._compute_amount()
-        for line in self.filtered(lambda x: x.is_downpayment):
-            line.update({"price_subtotal": 0.0})
-        return res
-
-    def _prepare_account_move_line(self, move=False):
-        self.ensure_one()
-        if self._context.get("final_payment", False) and self.is_downpayment:
-            if self.product_id.purchase_method == "purchase":
-                qty = self.qty_invoiced
-            else:
-                qty = self.qty_received - self.qty_invoiced
-
-            vals = {
-                "name": "{}: {}".format(self.order_id.name, self.name),
-                "currency_id": move and move.currency_id.id or self.currency_id.id,
-                "purchase_line_id": self.id,
-                "product_uom_id": self.product_uom.id,
-                "product_id": self.product_id.id,
-                "price_unit": self.price_unit,
-                "quantity": qty,
-                "analytic_distribution": self.analytic_distribution,
-                "tax_ids": [(6, 0, self.taxes_id.ids)],
-                "display_type": self.display_type or "product",
-            }
-
-            if move:
-                vals.update({
-                    "move_id": move.id,
-                    "date_maturity": move.invoice_date_due,
-                    "partner_id": move.partner_id.id,
-                })
-
-            return vals
-        elif self.is_downpayment:
-            if self.product_id.purchase_method == "purchase":
-                qty = self.product_qty - self.qty_invoiced
-            else:
-                qty = self.qty_received - self.qty_invoiced
-
-            vals = {
-                "name": "{}: {}".format(self.order_id.name, self.name),
-                "currency_id": move and move.currency_id.id or self.currency_id.id,
-                "purchase_line_id": self.id,
-                "product_uom_id": self.product_uom.id,
-                "product_id": self.product_id.id,
-                "price_unit": self.price_unit,
-                "quantity": qty,
-                "analytic_distribution": self.analytic_distribution,
-                "tax_ids": [(6, 0, self.taxes_id.ids)],
-                "display_type": self.display_type or "product",
-            }
-            if move:
-                vals.update({
-                    "move_id": move.id,
-                    "date_maturity": move.invoice_date_due,
-                    "partner_id": move.partner_id.id,
-                })
-            return vals
-        else:
-            return super()._prepare_account_move_line(move)
 
 
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
-
-    @api.onchange("partner_id")
-    def _set_partner_supplier_currency_id(self):
-        self.currency_id = (
-            self.partner_id.property_purchase_currency_id or self.partner_id.currency_id
-        )
 
     def copy_data(self, default=None):
         if default is None:
@@ -115,45 +23,189 @@ class PurchaseOrder(models.Model):
             ]
         return super().copy_data(default)
 
-    def action_view_invoice(self, invoices=False):
-        res = super().action_view_invoice()
-        res["context"] = dict(safe_eval(res.get("context")))
-        invoices = self.mapped("invoice_ids")
-        if self._context.get("purchase_bill", False):
-            if "downpayment_line" in res["context"]:
-                res["context"]["downpayment_line"] = True
-            if len(invoices) > 1:
-                action = self.env["ir.actions.act_window"]._for_xml_id(
-                    "account.action_move_in_invoice_type"
-                )
-                action["domain"] = [("id", "in", invoices.ids)]
-                return action
-            elif len(invoices) == 1:
-                res["views"] = [(self.env.ref("account.view_move_form").id, "form")]
-                res["res_id"] = invoices.ids[0]
-        elif self._context.get("final", False):
-            if len(invoices) > 1:
-                action = self.env["ir.actions.act_window"]._for_xml_id(
-                    "account.action_move_in_invoice_type"
-                )
-                action["domain"] = [("id", "in", invoices.ids)]
-                return action
-            elif len(invoices) == 1:
-                res["views"] = [(self.env.ref("account.view_move_form").id, "form")]
-                res["res_id"] = invoices.ids[0]
-            res["context"]["final_payment"] = True
-        elif self._context.get("without_downpayment", False):
-            if not invoices:
-                raise UserError(
-                    _(
-                        """There is no invoiceable line.
-                        If a product has a Received quantities control policy,
-                        please make sure that a quantity has been received."""
+    @api.model
+    def _nothing_to_invoice_error(self):
+        """Function to showing user error while
+        there is no products are received for the purchase order"""
+        return UserError(
+            _(
+                "There is nothing to bill!\n\n"
+                "Reason(s) of this behavior could be:\n"
+                "- You should recieve your products before billing them: "
+                'Click on the "truck" icon '
+                "(top-right of your screen) and follow instructions.\n"
+                "- You should modify the control policy of your product: "
+                "Open the product, go to the "
+                '"Purchase" tab and modify control policy from "On received '
+                'quantities" to "On ordered quantities".'
+            )
+        )
+
+    def _advance_bill_payment(self, grouped=False, final=False, date=None):
+        """
+        Create the Bill associated to the PO.
+        :returns: list of created invoices
+        """
+        bill_vals_list = []
+        bill_item_sequence = (
+            0  # Incremental sequencing to keep the lines order on the invoice.
+        )
+        for order in self:
+            order = order.with_company(order.company_id)
+            bill_vals = order._prepare_invoice()
+            billable_lines = order._get_billable_lines(final)
+            if not any(not line.display_type for line in billable_lines):
+                continue
+            bill_line_vals = []
+            down_payment_section_added = False
+            for line in billable_lines:
+                if not down_payment_section_added and line.is_downpayment:
+                    bill_line_vals.append(
+                        (
+                            0,
+                            0,
+                            order._prepare_down_payment_section_line(
+                                sequence=bill_item_sequence,
+                            ),
+                        ),
                     )
+                    down_payment_section_added = True
+                    bill_item_sequence += 1
+                bill_line_vals.append(
+                    (
+                        0,
+                        0,
+                        line.with_context(
+                            sequence=bill_item_sequence
+                        )._prepare_account_move_line(),
+                    ),
                 )
-            res["views"] = [(self.env.ref("account.view_move_form").id, "form")]
-            res["res_id"] = invoices.ids[0]
-        return res
+                bill_item_sequence += 1
+            bill_vals["invoice_line_ids"] += bill_line_vals
+            bill_vals_list.append(bill_vals)
+        if not bill_vals_list:
+            raise self._nothing_to_invoice_error()
+        if not grouped:
+            new_bill_vals_list = []
+            invoice_grouping_keys = self._get_invoice_grouping_keys()
+            bill_vals_list = sorted(
+                bill_vals_list,
+                key=lambda x: [
+                    x.get(grouping_key) for grouping_key in invoice_grouping_keys
+                ],
+            )
+            for _grouping_keys, bills in groupby(
+                bill_vals_list,
+                key=lambda x: [
+                    x.get(grouping_key) for grouping_key in invoice_grouping_keys
+                ],
+            ):
+                origins = set()
+                payment_refs = set()
+                refs = set()
+                ref_bill_vals = None
+                for bill_vals in bills:
+                    if not ref_bill_vals:
+                        ref_bill_vals = bill_vals
+                    else:
+                        ref_bill_vals["invoice_line_ids"] += bill_vals[
+                            "invoice_line_ids"
+                        ]
+                    origins.add(bill_vals["invoice_origin"])
+                    payment_refs.add(bill_vals["payment_reference"])
+                    refs.add(bill_vals["ref"])
+                ref_bill_vals.update(
+                    {
+                        "ref": ", ".join(refs)[:2000],
+                        "invoice_origin": ", ".join(origins),
+                        "payment_reference": len(payment_refs) == 1
+                        and payment_refs.pop()
+                        or False,
+                    }
+                )
+                new_bill_vals_list.append(ref_bill_vals)
+            bill_vals_list = new_bill_vals_list
+        if len(bill_vals_list) < len(self):
+            PurchaseOrderLine = self.env["purchase.order.line"]
+            for invoice in bill_vals_list:
+                sequence = 1
+                for line in invoice["invoice_line_ids"]:
+                    line[2]["sequence"] = PurchaseOrderLine._get_bill_line_sequence(
+                        new=sequence, old=line[2]["sequence"]
+                    )
+                    sequence += 1
+        moves = (
+            self.env["account.move"]
+            .sudo()
+            .with_context(default_move_type="in_invoice")
+            .create(bill_vals_list)
+        )
+        if final:
+            moves.sudo().filtered(
+                lambda m: m.amount_total < 0
+            ).action_switch_move_type()
+        return moves
+
+    @api.model
+    def _prepare_down_payment_section_line(self, **optional_values):
+        """
+        Prepare the dict of values to create a new down payment section
+        for a purchase order line.
+        :param optional_values: any parameter that should be added to
+                                the returned down payment section
+        """
+        context = {"lang": self.partner_id.lang}
+        down_payments_section_line = {
+            "display_type": "line_section",
+            "name": _("Pre Payments"),
+            "product_id": False,
+            "product_uom_id": False,
+            "quantity": 0,
+            "discount": 0,
+            "price_unit": 0,
+            "account_id": False,
+        }
+        del context
+        if optional_values:
+            down_payments_section_line.update(optional_values)
+        return down_payments_section_line
+
+    def _get_invoice_grouping_keys(self):
+        """Return invoice grouping keys"""
+        return ["company_id", "partner_id", "currency_id"]
+
+    def _get_billable_lines(self, final=False):
+        """Return the invoiceable lines for order `self`."""
+        down_payment_line_ids = []
+        billable_line_ids = []
+        pending_section = None
+        precision = self.env["decimal.precision"].precision_get(
+            "Product Unit of Measure"
+        )
+        for line in self.order_line:
+            # line.display_type = ''
+            if line.display_type == "line_section":
+                pending_section = line
+                continue
+            if line.display_type != "line_note" and float_is_zero(
+                line.qty_to_invoice, precision_digits=precision
+            ):
+                continue
+            if (
+                line.qty_to_invoice > 0
+                or (line.qty_to_invoice < 0 and final)
+                or line.display_type == "line_note"
+            ):
+                if line.is_downpayment:
+                    down_payment_line_ids.append(line.id)
+                    continue
+                if pending_section:
+                    billable_line_ids.append(pending_section.id)
+                    pending_section = None
+                billable_line_ids.append(line.id)
+        return self.env["purchase.order.line"].browse(
+            billable_line_ids + down_payment_line_ids
+        )
 
     @api.depends("state", "order_line.qty_to_invoice")
     def _get_invoiced(self):
@@ -190,3 +242,51 @@ class PurchaseOrder(models.Model):
                 order.invoice_status = "invoiced"
             else:
                 order.invoice_status = "no"
+
+    def extra_advance_bill_vals(self):
+        """Function to Add the extra advance bill values"""
+        # Your logic here to extra advance bill values based on the order
+        res = {}
+        try:
+            res = super().extra_advance_bill_vals()
+        except AttributeError:
+            pass
+        return res
+
+
+class PurchaseOrderLine(models.Model):
+    _inherit = "purchase.order.line"
+
+    is_downpayment = fields.Boolean(
+        string="Is a down payment",
+        help="Down payments are made when creating Bills from a purchase order."
+        " They are not copied when duplicating a purchase order.",
+    )
+
+    def _prepare_account_move_line(self, move=False):
+        """
+        Prepare the dict of values to create the new bill line for a purchase order line.
+        :param qty: float quantity to bill
+        :param optional_values: any parameter that should be added to the returned bill line
+        """
+        res = super()._prepare_account_move_line(move)
+        sequence = self._context.get("sequence")
+        if sequence is not None:
+            res.update({"sequence": sequence})
+        if self.display_type:
+            res["account_id"] = False
+
+        return res
+
+    def _get_bill_line_sequence(self, new=0, old=0):
+        """
+        Method intended to be overridden in third-party module
+        if we want to prevent the resequencing
+        of bill lines.
+
+        :param int new:   the new line sequence
+        :param int old:   the old line sequence
+
+        :return:          the sequence of the PO line, by default the new one.
+        """
+        return new or old

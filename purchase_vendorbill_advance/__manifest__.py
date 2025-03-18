@@ -4,10 +4,10 @@
 {
     "name": "Purchase Order Prepayments (down payment)",
     "summary": """
-    This module extends the functionality of Odoo 16 to add prepayments (down payments)
-    for the purchase order.
+            This module extends the functionality of Odoo 17
+            to add prepayments (down payments) for the purchase order.
         """,
-    "version": "18.0.1.1.2",
+    "version": "18.0.1.0.0",
     "category": "Purchase",
     "website": "https://sodexis.com/",
     "author": "Sodexis",
@@ -16,6 +16,7 @@
     "depends": [
         "purchase",
         "account",
+        "stock",
     ],
     "data": [
         "security/ir.model.access.csv",
