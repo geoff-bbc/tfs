@@ -1,34 +1,27 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Copyright 2019-22 Sodexis
+<!-- Copyright 2019-2023 Sodexis
      License OPL-1 (See LICENSE file for full copyright and licensing details). -->
 <odoo>
     <record id="res_config_settings_view_form_purchase" model="ir.ui.view">
-        <field name="name">res.config.settings.view.form.inherit.ship.term
-        </field>
-        <field name="model">res.config.settings</field>
-        <field
-            name="inherit_id"
-            ref="purchase.res_config_settings_view_form_purchase"
-        />
-        <field name="arch" type="xml">
-            <xpath expr="//div[@data-key='purchase']" position="inside">
-                <div class="row mt16 o_settings_container">
-                    <div class="col-xs-12 col-md-6 o_setting_box">
-                        <div class="o_setting_right_pane">
-                            <label
-                                for="deposit_default_purchase_product_id"
-                                string="Prepayment"
-                            />
-                            <div class="text-muted">
-                            Product used for prepayments
-                        </div>
-                        </div>
-                        <div class="o_setting_right_pane">
-                            <field name="deposit_default_purchase_product_id" />
-                        </div>
-                    </div>
-                </div>
-            </xpath>
-        </field>
-    </record>
+		<field name="name">res.config.settings.view.form.inherit.purchase</field>
+		<field name="model">res.config.settings</field>
+		<field name="priority" eval="25" />
+		<field name="inherit_id" ref="purchase.res_config_settings_view_form_purchase" />
+		<field name="arch" type="xml">
+			<xpath expr="//block[@name='matrix_setting_container']" position="inside">
+                <setting
+                    id="purchase_pre_payments"
+                    string="Pre-Payments"
+                    help="Product used for purchase pre-payments"
+                    company_dependent="1"
+                >
+                    <field
+                        name="po_deposit_default_product_id"
+                        context="{'default_detailed_type': 'service'}"
+                        domain="['|',('company_id', '=', company_id),('company_id', '=', False)]"
+                    />
+                </setting>
+			</xpath>
+		</field>
+	</record>
 </odoo>
