@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="add_subscribe_button" name="Subscribe Button" inherit_id="website_blog.blog_post_sidebar"
+              active="True" priority="3">
+        <!-- Add newsletter in blog post  -->
+        <xpath expr="//div[contains(@class,'o_wblog_social_links')]" position="after">
+            <t t-call="website_mail.follow" t-if="blog">
+                <t t-set="email" t-value="user_id.email"/>
+                <t t-set="object" t-value="blog"/>
+                <t t-set="div_class" t-value="'pt-2'"/>
+            </t>
+        </xpath>
+
+    </template>
+
+</odoo>
