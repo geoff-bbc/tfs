@@ -9,7 +9,6 @@
             <xpath expr="//page[@name='internal_notes']" position="after">
                 <page name="blacklist_email" string="Blacklist Email">
                 <group>
-                    <field name="is_blacklist"/>
                     <field name="unsubscription_date"/>
                     <field name="followup_2_notify_date" invisible="1"/>
                     <field name="followup_3_notify_date" invisible="1"/>
