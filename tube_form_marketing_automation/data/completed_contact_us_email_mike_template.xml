@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <!-- Send while contact us form filled and lead generated oppotunity mail-->
+        <record id="completed_contact_us_form_send_mike_email_template" model="mail.template">
+            <field name="name">Completed Contact Us From Send Mike Email Template</field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="subject">New Opportunity Has Been Created.</field>
+            <field name="email_from"></field>
+            <field name="reply_to">mike.thomas@tfs-corp.com</field>
+            <field name="email_to">{{object.partner_id.user_id.login}}</field>
+            <field name="body_html" type="html">
+                <table border="0" cellpadding="0" cellspacing="0" style="padding:16px 0px 16px 0px;height:fit-content; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"><tr><td align="center">
+                    <table border="0" cellpadding="0" cellspacing="0" width="590" style="padding:16px 0px 0px 0px; background-color: white; color: #454748; border-collapse:separate;">
+                    <tbody>
+                        <tr>
+                            <td align="center" style="min-width: 590px;">
+                                <img src="/tube_form_marketing_automation/static/src/img/tfs.png" alt="Company logo" style='height:100px;margin-top:5px'/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="min-width: 630px;">
+                                <div style='padding:0px 16px 0px 16px;'>
+                                    <p style='color:rgb(74,105,135);font-size:initial;text-align:start'>Hi <b><span t-esc="object.partner_id.user_id.name"/></b>,</p>
+                                </div><br/>
+                                <div style='padding:0px 16px 0px 16px;'>
+                                    <p style='color:rgb(74,105,135);font-size:initial;text-align:start'>The following opportunity was just created. Please review and assign to the correct salesperson.</p>
+                                </div><br/>
+                                <div style='padding:0px 16px 0px 16px;'>
+                                    <p style='color:rgb(74,105,135);font-size:initial;text-align:start'><a t-attf-href="/web#id={{object.id}}&amp;menu_id=435&amp;cids=1&amp;action=693&amp;model=crm.lead&amp;view_type=form">Click here to go to the opportunity in Odoo</a> to see the details.</p>
+                                </div><br/>
+                                <div>
+                                    <table class="table" style="border:1pt solid black;width:500px">
+                                        <tbody>
+                                            <t>
+                                                <tr style="font-size:initial;padding:10px;">
+                                                    <td style="border:1pt solid black;"><span>Opportunity Name</span></td>
+                                                    <td style="border:1pt solid black;"><span t-esc="object.name"/></td>
+                                                </tr>
+                                                <tr style="font-size:initial;padding:10px;">
+                                                    <td style="border:1pt solid black;"><span>Created By</span></td>
+                                                    <td style="border:1pt solid black;"><span t-esc="object.create_uid.name"/></td>
+                                                </tr>
+                                                <tr style="font-size:initial;padding:10px;">
+                                                    <td style="border:1pt solid black;"><span>Contact Name</span></td>
+                                                    <td style="border:1pt solid black;"><span t-esc="object.contact_name"/></td>
+                                                </tr>
+                                                <tr style="font-size:initial;padding:10px;">
+                                                    <td style="border:1pt solid black;"><span>Company Name</span></td>
+                                                    <td style="border:1pt solid black;"><span t-esc="object.partner_name"/></td>
+                                                </tr>
+                                                <tr style="font-size:initial;padding:10px;">
+                                                    <td style="border:1pt solid black;"><span>Email</span></td>
+                                                    <td style="border:1pt solid black;"><span t-esc="object.email_from"/></td>
+                                                </tr>
+                                                <tr style="font-size:initial;padding:10px;">
+                                                    <td style="border:1pt solid black;"><span>Phone</span></td>
+                                                    <td style="border:1pt solid black;"><span t-esc="object.phone"/></td>
+                                                </tr>
+                                                <tr style="font-size:initial;padding:10px;">
+                                                    <td style="border:1pt solid black;"><span>Notes From Customer</span></td>
+                                                    <td style="border:1pt solid black;"><span t-esc="object.x_studio_notes_from_customer"/></td>
+                                                </tr>
+                                                <tr style="font-size:initial;padding:10px;">
+                                                    <td style="border:1pt solid black;"><span>Contact Support Page</span></td>
+                                                    <td style="border:1pt solid black;"><span t-esc="object.contact_support_page"/></td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                 <div style='padding:0px 16px 0px 16px;'>
+                                     <p style='color:rgb(74,105,135);font-size:initial;text-align:start;margin-bottom:0px'>Opportunities can get created way:</p>
+                                    <ul>
+                                        <li style='color:rgb(74,105,135);text-align:start'>a salesperson uses the CRM app within Odoo</li>
+                                        <li style='color:rgb(74,105,135);text-align:start'>a public user submits a form via Contact Us Form one of the websites</li>
+                                    </ul>
+                                </div><br/>
+                            </td>
+                        </tr>
+                    </tbody>
+                    </table>
+                    </td></tr>
+                </table>
+            </field>
+        </record>
+    </data>
+</odoo>
