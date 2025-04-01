@@ -19,7 +19,6 @@
                         <field name="mailing_contact_list_ids">
                             <tree editable="bottom" create="false">
                                 <field name="followup_3_notify_date" invisible="1"/>
-                                <field name="form_name"/>
                                 <field name="form_details"/>
                                 <field name="email" invisible="1"/>
                             </tree>
