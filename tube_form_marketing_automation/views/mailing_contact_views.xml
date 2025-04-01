@@ -15,15 +15,6 @@
                             </tree>
                         </field>
                     </page>
-                    <page string="Mailing Contact Form List" groups="base.group_no_one">
-                        <field name="mailing_contact_list_ids">
-                            <tree editable="bottom" create="false">
-                                <field name="followup_3_notify_date" invisible="1"/>
-                                <field name="form_details"/>
-                                <field name="email" invisible="1"/>
-                            </tree>
-                        </field>
-                    </page>
                 </notebook>
             </xpath>
         </field>
