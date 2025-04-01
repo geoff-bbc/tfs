@@ -15,19 +15,6 @@
                     <field name="followup_3_notify_date" invisible="1"/>
                 </group>
                 </page>
-                <page string="Form Contact List" >
-                    <field name="form_partner_list_ids">
-                        <tree editable="bottom" create="false">
-                            <field name="followup_2_date"/>
-                            <field name="name"/>
-                            <field name="email" invisible="1"/>
-                            <field name="form_partner_list_id" invisible="1"/>
-                            <field name="form_name"/>
-                            <field name="crm_lead_id"/>
-                            <field name="duplicate_under_90_days" invisible="1"/>
-                        </tree>
-                    </field>
-                </page>
             </xpath>
         </field>
     </record>
