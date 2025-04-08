@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mailing_contact_view_form_inherit_email" model="ir.ui.view">
+        <field name="name">mailing.contact.view.form.inherit.email</field>
+        <field name="model">mailing.contact</field>
+        <field name="inherit_id" ref="mass_mailing.mailing_contact_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='subscription_ids']" position="replace">
+                <notebook>
+                    <page string="Mailing List" name="mailing_list">
+                        <field name="subscription_ids">
+                            <tree editable="bottom">
+                                <field name="list_ids"/>
+                                <field name="opt_out"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="crm_follow_up_res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.followup.days</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="crm.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//block[@name='generate_lead_setting_container']" position="after">
+                    <h2 groups="base.group_no_one">Followup Scheduled</h2>
+                        <div class="row mt16 o_settings_container" name="generate_lead_setting_container" groups="base.group_no_one">
+                            <div class="col-lg-6 o_setting_box">
+                                <div class="o_setting_right_pane" id="website_crm_iap_reveal_settings">
+                                    <group>
+                                        <field name="follow_up_2_notify_day"/>
+                                    </group>
+                                    <div class="text-muted">
+                                        Enter a Days of the delay for the following 2nd followup mails
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 o_setting_box">
+                                <div class="o_setting_right_pane" id="website_crm_iap_reveal_settings">
+                                     <group>
+                                        <field name="follow_up_3_notify_day"/>
+                                    </group>
+                                    <div class="text-muted">
+                                        Enter a Days of the delay for the following 3rd followup mails
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </xpath>
+            </field>
+        </record>
+</odoo>
